@@ -3,61 +3,56 @@
 *                                                      uC/OS-III
 *                                                 The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2015; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                                  (c) Copyright 2009-2010; Micrium, Inc.; Weston, FL
+*                          All rights reserved.  Protected by international copyright laws.
 *
-*                                                  CONFIGURATION FILE
+*                                                  CONFIGURATION  FILE
 *
 * File    : OS_CFG.H
 * By      : JJL
-* Version : V3.04.05
+* Version : V3.01.2
 *
 * LICENSING TERMS:
 * ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*               uC/OS-III is provided in source form to registered licensees ONLY.  It is
+*               illegal to distribute this source code to any third party unless you receive
+*               written permission by an authorized Micrium representative.  Knowledge of
+*               the source code may NOT be used to develop a similar product.
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
+*               Please help us continue to provide the Embedded community with the finest
+*               software available.  Your honesty is greatly appreciated.
 *
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at https://doc.micrium.com.
-*           You can contact us at www.micrium.com.
+*               You can contact us at www.micrium.com.
 ************************************************************************************************************************
 */
 
 #ifndef OS_CFG_H
 #define OS_CFG_H
 
+
                                              /* ---------------------------- MISCELLANEOUS -------------------------- */
 #define OS_CFG_APP_HOOKS_EN             1u   /* Enable (1) or Disable (0) application specific hooks                  */
-#define OS_CFG_ARG_CHK_EN               0u   /* Enable (1) or Disable (0) argument checking                           */
-#define OS_CFG_CALLED_FROM_ISR_CHK_EN   0u   /* Enable (1) or Disable (0) check for called from ISR                   */
+#define OS_CFG_ARG_CHK_EN               1u   /* Enable (1) or Disable (0) argument checking                           */
+#define OS_CFG_CALLED_FROM_ISR_CHK_EN   1u   /* Enable (1) or Disable (0) check for called from ISR                   */
 #define OS_CFG_DBG_EN                   1u   /* Enable (1) debug code/variables                                       */
-#define OS_CFG_ISR_POST_DEFERRED_EN     0u   /* Enable (1) or Disable (0) Deferred ISR posts                          */
+#define OS_CFG_ISR_POST_DEFERRED_EN     1u   /* Enable (1) or Disable (0) Deferred ISR posts                          */
 #define OS_CFG_OBJ_TYPE_CHK_EN          1u   /* Enable (1) or Disable (0) object type checking                        */
 #define OS_CFG_TS_EN                    1u   /* Enable (1) or Disable (0) time stamping                               */
 
 #define OS_CFG_PEND_MULTI_EN            1u   /* Enable (1) or Disable (0) code generation for multi-pend feature      */
 
-#define OS_CFG_PRIO_MAX                64u   /* Defines the maximum number of task priorities (see OS_PRIO data type) */
+#define OS_CFG_PRIO_MAX                32u   /* Defines the maximum number of task priorities (see OS_PRIO data type) */
 
-#define OS_CFG_SCHED_LOCK_TIME_MEAS_EN  0u   /* Include code to measure scheduler lock time                           */
+#define OS_CFG_SCHED_LOCK_TIME_MEAS_EN  1u   /* Include code to measure scheduler lock time                           */
 #define OS_CFG_SCHED_ROUND_ROBIN_EN     1u   /* Include code for Round-Robin scheduling                               */
 #define OS_CFG_STK_SIZE_MIN            64u   /* Minimum allowable task stack size                                     */
 
 
                                              /* ----------------------------- EVENT FLAGS --------------------------- */
 #define OS_CFG_FLAG_EN                  1u   /* Enable (1) or Disable (0) code generation for EVENT FLAGS             */
-#define OS_CFG_FLAG_DEL_EN              0u   /*     Include code for OSFlagDel()                                      */
-#define OS_CFG_FLAG_MODE_CLR_EN         0u   /*     Include code for Wait on Clear EVENT FLAGS                        */
-#define OS_CFG_FLAG_PEND_ABORT_EN       0u   /*     Include code for OSFlagPendAbort()                                */
+#define OS_CFG_FLAG_DEL_EN              1u   /*     Include code for OSFlagDel()                                      */
+#define OS_CFG_FLAG_MODE_CLR_EN         1u   /*     Include code for Wait on Clear EVENT FLAGS                        */
+#define OS_CFG_FLAG_PEND_ABORT_EN       1u   /*     Include code for OSFlagPendAbort()                                */
 
 
                                              /* -------------------------- MEMORY MANAGEMENT ------------------------ */
@@ -66,8 +61,8 @@
 
                                              /* --------------------- MUTUAL EXCLUSION SEMAPHORES ------------------- */
 #define OS_CFG_MUTEX_EN                 1u   /* Enable (1) or Disable (0) code generation for MUTEX                   */
-#define OS_CFG_MUTEX_DEL_EN             0u   /*     Include code for OSMutexDel()                                     */
-#define OS_CFG_MUTEX_PEND_ABORT_EN      0u   /*     Include code for OSMutexPendAbort()                               */
+#define OS_CFG_MUTEX_DEL_EN             1u   /*     Include code for OSMutexDel()                                     */
+#define OS_CFG_MUTEX_PEND_ABORT_EN      1u   /*     Include code for OSMutexPendAbort()                               */
 
 
                                              /* --------------------------- MESSAGE QUEUES -------------------------- */
@@ -100,18 +95,11 @@
 
                                              /* -------------------------- TIME MANAGEMENT -------------------------- */
 #define OS_CFG_TIME_DLY_HMSM_EN         1u   /*     Include code for OSTimeDlyHMSM()                                  */
-#define OS_CFG_TIME_DLY_RESUME_EN       0u   /*     Include code for OSTimeDlyResume()                                */
-
-
-                                             /* ------------------- TASK LOCAL STORAGE MANAGEMENT ------------------- */
-#define OS_CFG_TLS_TBL_SIZE             0u   /* Include code for Task Local Storage (TLS) registers                   */
+#define OS_CFG_TIME_DLY_RESUME_EN       1u   /*     Include code for OSTimeDlyResume()                                */
 
 
                                              /* ------------------------- TIMER MANAGEMENT -------------------------- */
 #define OS_CFG_TMR_EN                   1u   /* Enable (1) or Disable (0) code generation for TIMERS                  */
-#define OS_CFG_TMR_DEL_EN               0u   /* Enable (1) or Disable (0) code generation for OSTmrDel()              */
-
-                                             /* ------------------------------ uC/TRACE ----------------------------- */
-#define TRACE_CFG_EN                    0u   /* Enable (1) or Disable (0) uC/Trace instrumentation                    */
+#define OS_CFG_TMR_DEL_EN               1u   /* Enable (1) or Disable (0) code generation for OSTmrDel()              */
 
 #endif

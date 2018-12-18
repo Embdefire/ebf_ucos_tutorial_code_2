@@ -44,9 +44,6 @@
 *********************************************************************************************************
 */
 
-OS_SEM SemOfKey;          //标志KEY1是否被单击的多值信号量
-
-
 /*
 *********************************************************************************************************
 *                                                 TCB
@@ -165,13 +162,7 @@ static  void  AppTaskStart (void *p_arg)
 #endif
 
     CPU_IntDisMeasMaxCurReset();
-    
-		/* 创建多值信号量 SemOfKey */
-    OSSemCreate((OS_SEM      *)&SemOfKey,    //指向信号量变量的指针
-               (CPU_CHAR    *)"SemOfKey",    //信号量的名字
-               (OS_SEM_CTR   )1,             //信号量这里是指示事件发生，所以赋值为0，表示事件还没有发生
-               (OS_ERR      *)&err);         //错误类型
-							 
+
 
     OSTaskCreate((OS_TCB     *)&AppTaskLed1TCB,                /* Create the Led1 task                                */
                  (CPU_CHAR   *)"App Task Led1",
@@ -231,42 +222,22 @@ static  void  AppTaskStart (void *p_arg)
 static  void  AppTaskLed1 ( void * p_arg )
 {
     OS_ERR      err;
-    static uint32_t i;
-	  CPU_TS         ts_sem_post;
   
+    uint32_t i = 0;
+
    (void)p_arg;
-  
+
 
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-			
-//      
-      //获取二值信号量 xSemaphore,没获取到则一直等待
-//			OSSemPend ((OS_SEM   *)&SemOfKey,             //等待该信号量被发布
-//								 (OS_TICK   )0,                     //无期限等待
-//								 (OS_OPT    )OS_OPT_PEND_BLOCKING,  //如果没有信号量可用就等待
-//								 (CPU_TS   *)&ts_sem_post,          //获取信号量最后一次被发布的时间戳
-//								 (OS_ERR   *)&err);                 //返回错误类型
-      printf("AppTaskLed1 获取信号量\n");
-      for(i=0;i<2000000;i++)//模拟低优先级任务占用信号量
+			macLED1_TOGGLE ();
+      
+      for(i = 0;i<20000000;i++)
       {
-//       			OSTimeDlyHMSM (0,0,1,0,OS_OPT_TIME_PERIODIC,&err);
-// 
-//        ;
-//        OS_TaskSuspend(NULL,&err);
-        OSSched();//发起任务调度
-      }
+        ;
+      } 
       
-      
-      
-//		  OSSemPost((OS_SEM  *)&SemOfKey,                                        //发布SemOfKey
-//							 (OS_OPT   )OS_OPT_POST_1,                                   //发布给所有等待任务
-//							 (OS_ERR  *)&err); 
-//      
-      printf("AppTaskLed1 释放信号量!\n");
-      printf("--------------------------------------------------------------\n");
-      
-      macLED1_TOGGLE ();
-			OSTimeDlyHMSM (0,0,10,10,OS_OPT_TIME_PERIODIC,&err);
+      printf("LED 1 \n");
+			OSTimeDly ( 500, OS_OPT_TIME_DLY, & err );
     }
 		
 		
@@ -283,15 +254,14 @@ static  void  AppTaskLed2 ( void * p_arg )
 {
     OS_ERR      err;
 
-    uint32_t i;
-  
+
    (void)p_arg;
 
 
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-			printf("AppTaskLed2 Runing\n");
-      macLED2_TOGGLE ();
-			OSTimeDlyHMSM (0,0,0,500,OS_OPT_TIME_PERIODIC,&err);
+			macLED2_TOGGLE ();
+      printf("LED 2 \n");
+			OSTimeDly ( 500, OS_OPT_TIME_DLY, & err );
     }
 		
 		
@@ -307,30 +277,15 @@ static  void  AppTaskLed2 ( void * p_arg )
 static  void  AppTaskLed3 ( void * p_arg )
 {
     OS_ERR      err;
-	  CPU_TS         ts_sem_post;
+
 
    (void)p_arg;
 
 
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-			
-      
-//      //获取二值信号量 xSemaphore,没获取到则一直等待
-//			OSSemPend ((OS_SEM   *)&SemOfKey,             //等待该信号量被发布
-//								 (OS_TICK   )0,                     //无期限等待
-//								 (OS_OPT    )OS_OPT_PEND_BLOCKING,  //如果没有信号量可用就等待
-//								 (CPU_TS   *)&ts_sem_post,          //获取信号量最后一次被发布的时间戳
-//								 (OS_ERR   *)&err);                 //返回错误类型
-			printf("AppTaskLed3 获取信号量\n");	
-      macLED3_TOGGLE ();
-      
-//      //给出二值信号量
-//		  OSSemPost((OS_SEM  *)&SemOfKey,                                        //发布SemOfKey
-//							 (OS_OPT   )OS_OPT_POST_1,                                 
-//							 (OS_ERR  *)&err); 
-      printf("AppTaskLed3 释放信号量\n");
-			OSTimeDlyHMSM (0,0,0,500,OS_OPT_TIME_PERIODIC,&err);
-      
+			macLED3_TOGGLE ();
+      printf("LED 3 \n");
+			OSTimeDly ( 500, OS_OPT_TIME_DLY, & err );
     }
 		
 		
