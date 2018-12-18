@@ -97,12 +97,10 @@ static  void  AppTaskKey    ( void * p_arg );
 * Returns     : none
 *********************************************************************************************************
 */
-
 int  main (void)
 {
     OS_ERR  err;
 
-	
     OSInit(&err);                                                           //初始化 uC/OS-III
 
 	  /* 创建起始任务 */
@@ -204,7 +202,7 @@ static  void  AppTaskStart (void *p_arg)
                  (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
                  (OS_PRIO     ) APP_TASK_KEY_PRIO,                          //任务的优先级
                  (CPU_STK    *)&AppTaskKeyStk[0],                           //任务堆栈的基地址
-                 (CPU_STK_SIZE) APP_TASK_KEY_STK_SIZE / 10,                 //任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_KEY_STK_SIZE / 90,                 //任务堆栈空间剩下1/10时限制其增长
                  (CPU_STK_SIZE) APP_TASK_KEY_STK_SIZE,                      //任务堆栈空间（单位：sizeof(CPU_STK)）
                  (OS_MSG_QTY  ) 50u,                                        //任务可接收的最大消息数
                  (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
@@ -267,19 +265,20 @@ static  void  AppTaskUsart ( void * p_arg )
 */
 static  void  AppTaskKey ( void * p_arg )
 {
+  CPU_INT08U arr[30];
 	OS_ERR         err;
 	CPU_TS_TMR     ts_int;
 	CPU_INT16U     version;
 	CPU_INT32U     cpu_clk_freq;
 	CPU_SR_ALLOC();
-
+  
 	
 	(void)p_arg;
 
 	version = OSVersion(&err);                          //获取uC/OS版本号
 	
   cpu_clk_freq = BSP_CPU_ClkFreq();                   //获取CPU时钟，时间戳是以该时钟计数
-
+  
 	
 	while (DEF_TRUE) {                                  //任务体
 		/* 阻塞任务，直到KEY1被单击 */
@@ -328,6 +327,11 @@ static  void  AppTaskKey ( void * p_arg )
 		
     printf ( "按键任务的已用和空闲堆栈大小分别为：%d,%d\r\n", 
 		         AppTaskKeyTCB.StkUsed, AppTaskKeyTCB.StkFree ); 
+
+    sprintf((char*)arr,"asfbhajksghlasasdfasfasf");
+    sprintf((char*)arr,"asfbhajksghlasasdfasfasf");
+    sprintf((char*)arr,"asfbhajksghlasasdfasfasf");
+    printf("%s",arr);
 		
 		OS_CRITICAL_EXIT();                               //退出临界段
 		
