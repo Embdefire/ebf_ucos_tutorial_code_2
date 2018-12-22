@@ -1,8 +1,8 @@
 
-set dir="%cd%"
+::set dir="%cd%"
 
-for /R %dir% %%i in (*.uvprojx) do (ren %%i Fire_uCOS.uvprojx)
-for /R %dir% %%i in (*.uvoptx) do (ren %%i Fire_uCOS.uvoptx)
+::for /R %dir% %%i in (*.uvprojx) do (ren %%i Fire_uCOS.uvprojx)
+::for /R %dir% %%i in (*.uvoptx) do (ren %%i Fire_uCOS.uvoptx)
 
 del *.bak /s
 del *.ddk /s
@@ -26,9 +26,6 @@ del *.tra /s
 del *.dep /s           
 del JLinkLog.txt /s
  
-del *.uvguix.Administrator /s  
-del *.scvd /s  
-
 del *.iex /s
 del *.htm /s
 ::del *.sct /s
