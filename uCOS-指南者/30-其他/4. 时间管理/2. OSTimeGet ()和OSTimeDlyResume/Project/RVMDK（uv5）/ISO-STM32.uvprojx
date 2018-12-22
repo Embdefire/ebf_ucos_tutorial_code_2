@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>测试函数</TargetName>
+      <TargetName>Fire_uCOS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
