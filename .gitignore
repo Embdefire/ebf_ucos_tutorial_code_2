@@ -27,7 +27,6 @@ tmp/
 # uVision generated files
 *.uvopt
 *.uvgui.*
-*.uvoptx
 *.uvguix.*
 *.TMP
 *.dbgconf
