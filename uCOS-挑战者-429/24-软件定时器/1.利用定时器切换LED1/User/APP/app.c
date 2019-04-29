@@ -226,7 +226,6 @@ static  void  AppTaskTmr ( void * p_arg )
 	
 	(void)p_arg;
 
-
   /* 创建软件定时器 */
   OSTmrCreate ((OS_TMR              *)&my_tmr,             //软件定时器对象
                (CPU_CHAR            *)"MySoftTimer",       //命名软件定时器
@@ -248,7 +247,7 @@ static  void  AppTaskTmr ( void * p_arg )
 		OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err ); //不断阻塞该任务
 
 	}
-	
+               
 }
 
 

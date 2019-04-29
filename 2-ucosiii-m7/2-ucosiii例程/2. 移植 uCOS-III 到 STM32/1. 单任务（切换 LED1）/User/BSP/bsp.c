@@ -8,7 +8,7 @@
   ******************************************************************************
   * @attention
   *
-  * 实验平台:秉火  STM32 F767 开发板  
+  * 实验平台:野火  STM32 F767 开发板  
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :http://firestm32.taobao.com
   *
@@ -174,7 +174,7 @@ void  BSP_OSTickInit (void)
 */
 HAL_StatusTypeDef  HAL_InitTick (uint32_t  TickPriority)
 {
-    HAL_NVIC_SetPriorityGrouping(0);
+    HAL_NVIC_SetPriorityGrouping(4);
 
     return (HAL_OK);
 }
