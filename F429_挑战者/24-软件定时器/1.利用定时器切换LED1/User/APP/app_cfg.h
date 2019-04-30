@@ -56,7 +56,7 @@
 
 #define  APP_TASK_START_PRIO                        2u            //任务优先级
 
-#define  APP_TASK_TMR_PRIO                          3u
+#define  APP_TASK_TMR_PRIO                          13u
 
 /*
 *********************************************************************************************************

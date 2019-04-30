@@ -343,13 +343,13 @@ static  void  AppTaskStatus  ( void * p_arg )
       printf ( "统计任务的CPU利用率：%d.%d%%\r\n", 
                AppTaskStatusTCB.CPUUsageMax / 100, AppTaskStatusTCB.CPUUsageMax % 100 ); 
 
-      printf ( "LED1任务的已用和空闲堆栈大小分别为：%d,%d\r\n", 
+      printf ( "LED1任务的已用和空闲栈大小分别为：%d,%d\r\n", 
                AppTaskLed1TCB.StkUsed, AppTaskLed1TCB.StkFree ); 
-      printf ( "LED2任务的已用和空闲堆栈大小分别为：%d,%d\r\n", 
+      printf ( "LED2任务的已用和空闲栈大小分别为：%d,%d\r\n", 
                AppTaskLed2TCB.StkUsed, AppTaskLed2TCB.StkFree ); 
-      printf ( "LED3任务的已用和空闲堆栈大小分别为：%d,%d\r\n", 
+      printf ( "LED3任务的已用栈和空闲栈大小分别为：%d,%d\r\n", 
                AppTaskLed3TCB.StkUsed, AppTaskLed3TCB.StkFree );     
-      printf ( "统计任务的已用和空闲堆栈大小分别为：%d,%d\r\n", 
+      printf ( "统计任务的已用栈和空闲栈大小分别为：%d,%d\r\n", 
                AppTaskStatusTCB.StkUsed, AppTaskStatusTCB.StkFree );
                
       printf("------------------------------------------------------------\n");         
