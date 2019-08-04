@@ -223,8 +223,8 @@ static  void  AppTaskPost ( void * p_arg )
 	while (DEF_TRUE) {                                            //任务体
 		/* 发布消息到消息队列 queue */
     OSQPost ((OS_Q        *)&queue,                             //消息变量指针
-             (void        *)"Fire uC/OS-III",                //要发送的数据的指针，将内存块首地址通过队列“发送出去”
-             (OS_MSG_SIZE  )sizeof ( "Fire uC/OS-III" ),     //数据字节大小
+             (void        *)"Fire uC/OS-123",                //要发送的数据的指针，将内存块首地址通过队列“发送出去”
+             (OS_MSG_SIZE  )sizeof ( "Fire uC/OS-123" ),     //数据字节大小
              (OS_OPT       )OS_OPT_POST_FIFO | OS_OPT_POST_ALL, //先进先出和发布给全部任务的形式
              (OS_ERR      *)&err);	                            //返回错误类型
 		
