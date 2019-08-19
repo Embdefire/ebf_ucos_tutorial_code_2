@@ -205,6 +205,7 @@ static  void  AppTaskLed1 ( void * p_arg )
     while (DEF_TRUE)                                 //任务体，通常都写成一个死循环
     {                                               
         LED1_TOGGLE;                                 //LED1闪烁
+			printf("LED1_TOGGLE\r\n");
         OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err );  //延时1s
     }
 		
@@ -230,6 +231,7 @@ static  void  AppTaskLed2 ( void * p_arg )
     while (DEF_TRUE)                                 //任务体，通常都写成一个死循环
     {                                               
         LED2_TOGGLE;                                 //LED2闪烁
+			PRINTF("LED2_TOGGLE\r\n");
         OSTimeDly ( 5000, OS_OPT_TIME_DLY, & err );  //延时5s
     }
 		
@@ -254,6 +256,7 @@ static  void  AppTaskLed3 ( void * p_arg )
     while (DEF_TRUE)                                 //任务体，通常都写成一个死循环
     {                                               
         LED3_TOGGLE;                                 //LED3闪烁
+				printf("LED3_TOGGLE\r\n");
         OSTimeDly ( 10000, OS_OPT_TIME_DLY, & err ); //延时10s
     }
 		
