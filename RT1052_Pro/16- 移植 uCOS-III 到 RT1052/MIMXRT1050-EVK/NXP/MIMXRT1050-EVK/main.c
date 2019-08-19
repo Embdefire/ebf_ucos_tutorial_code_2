@@ -51,7 +51,79 @@
 *                                            LOCAL DEFINES
 *********************************************************************************************************
 */
+/*
+*********************************************************************************************************
+*                                           模块禁能/使能
+*********************************************************************************************************
+*/
 
+
+/*
+*********************************************************************************************************
+*                                            任务优先级
+*********************************************************************************************************
+*/
+
+#define  APP_TASK_START_PRIO                2u
+#define  APP_TASK_LED1_PRIO                 3u
+#define  APP_TASK_LED2_PRIO                 3u
+#define  APP_TASK_LED3_PRIO                 3u
+/*
+*********************************************************************************************************
+*                                            任务堆栈大小
+*********************************************************************************************************
+*/
+#define  APP_TASK_START_STK_SIZE            256u
+#define  APP_TASK_LED1_STK_SIZE             512u
+#define  APP_TASK_LED2_STK_SIZE             512u
+#define  APP_TASK_LED3_STK_SIZE             512u
+/*
+*********************************************************************************************************
+*                                           跟踪/调试配置
+*********************************************************************************************************
+*/
+
+#ifndef  TRACE_LEVEL_OFF
+#define  TRACE_LEVEL_OFF                        0u
+#endif
+
+#ifndef  TRACE_LEVEL_INFO
+#define  TRACE_LEVEL_INFO                       1u
+#endif
+
+#ifndef  TRACE_LEVEL_DBG
+#define  TRACE_LEVEL_DBG                        2u
+#endif
+
+#define  APP_TRACE_LEVEL                        TRACE_LEVEL_OFF
+#define  APP_TRACE                              printf
+/*
+*********************************************************************************************************
+*                                         任务控制块TCB
+*********************************************************************************************************
+*/
+
+static  OS_TCB       AppTaskStartTCB;
+static  OS_TCB       AppTaskLed1TCB;
+static  OS_TCB       AppTaskLed2TCB;
+/*
+*********************************************************************************************************
+*                                            任务堆栈
+*********************************************************************************************************
+*/
+static  CPU_STK      AppTaskStartStk[APP_TASK_START_STK_SIZE];
+static  CPU_STK      AppTaskLed1Stk[APP_TASK_LED1_STK_SIZE];
+static  CPU_STK      AppTaskLed2Stk[APP_TASK_LED2_STK_SIZE];
+
+/*
+*********************************************************************************************************
+*                                            函数原型
+*********************************************************************************************************
+*/
+
+static  void  AppTaskStart (void  *p_arg);
+static  void  AppTaskLed1  ( void * p_arg );
+static  void  AppTaskLed2  ( void * p_arg );
 
 /*
 *********************************************************************************************************
@@ -150,7 +222,7 @@ int  main (void)
 
 static  void  StartupTask (void *p_arg)
 {
-    OS_ERR  os_err;
+    OS_ERR  err;
 
 
    (void)p_arg;
@@ -163,18 +235,107 @@ static  void  StartupTask (void *p_arg)
     LED_GPIO_Config();                                             /* Initialize LEDs                                      */
 
 #if OS_CFG_STAT_TASK_EN > 0u
-    OSStatTaskCPUUsageInit(&os_err);                            /* Compute CPU capacity with no task running            */
+    OSStatTaskCPUUsageInit(&err);                            /* Compute CPU capacity with no task running            */
 #endif
 
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
     CPU_IntDisMeasMaxCurReset();
 #endif
 
-    while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-        //CORE_BOARD_LED_TOGGLE;
-      RGB_RED_LED_TOGGLE;
-        OSTimeDlyHMSM(0u, 0u, 0u, 500u,
-                      OS_OPT_TIME_HMSM_STRICT,
-                      &os_err);
-    }
+//    while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
+//        //CORE_BOARD_LED_TOGGLE;
+//      RGB_RED_LED_TOGGLE;
+//        OSTimeDlyHMSM(0u, 0u, 0u, 500u,
+//                      OS_OPT_TIME_HMSM_STRICT,
+//                      &os_err);
+//    }
+    
+     /* 创建Led1任务 */
+    OSTaskCreate((OS_TCB     *)&AppTaskLed1TCB,                             //任务控制块地址
+                 (CPU_CHAR   *)"App Task Led1",                             //任务名称
+                 (OS_TASK_PTR ) AppTaskLed1,                                //任务函数
+                 (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
+                 (OS_PRIO     ) APP_TASK_LED1_PRIO,                         //任务的优先级
+                 (CPU_STK    *)&AppTaskLed1Stk[0],                          //任务堆栈的基地址
+                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE / 10,                //任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE,                     //任务堆栈空间（单位：sizeof(CPU_STK)）
+                 (OS_MSG_QTY  ) 5u,                                         //任务可接收的最大消息数
+                 (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
+                 (void       *) 0,                                          //任务扩展（0表不扩展）
+                 (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR), //任务选项
+                 (OS_ERR     *)&err);                                       //返回错误类型
+
+
+    /* 创建Led2任务 */
+    OSTaskCreate((OS_TCB     *)&AppTaskLed2TCB,                             //任务控制块地址
+                 (CPU_CHAR   *)"App Task Led2",                             //任务名称
+                 (OS_TASK_PTR ) AppTaskLed2,                                //任务函数
+                 (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
+                 (OS_PRIO     ) APP_TASK_LED2_PRIO,                         //任务的优先级
+                 (CPU_STK    *)&AppTaskLed2Stk[0],                          //任务堆栈的基地址
+                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE / 10,                //任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE,                     //任务堆栈空间（单位：sizeof(CPU_STK)）
+                 (OS_MSG_QTY  ) 5u,                                         //任务可接收的最大消息数
+                 (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
+                 (void       *) 0,                                          //任务扩展（0表不扩展）
+                 (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR), //任务选项
+                 (OS_ERR     *)&err);                                       //返回错误类型
+								 
+		//OSTaskDel ( & AppTaskStartTCB, & err );                             //删除起始任务
+		while(1)
+		{
+			OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err );  //延时1s
+		}
 }
+
+
+/*
+*********************************************************************************************************
+*                                          LED1 任务
+*********************************************************************************************************
+*/
+
+static  void  AppTaskLed1 ( void * p_arg )
+{
+    OS_ERR      err;
+
+
+   (void)p_arg;                                      //没有用到形参，防止编译器报错
+    
+    LED_RGBOFF;                                      //关闭RGB LED
+    
+    while (DEF_TRUE)                                 //任务体，通常都写成一个死循环
+    {                                               
+        LED1_TOGGLE;                                 //LED1闪烁
+        OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err );  //延时1s
+    }
+		
+		
+}
+
+
+/*
+*********************************************************************************************************
+*                                          LED2 任务
+*********************************************************************************************************
+*/
+
+static  void  AppTaskLed2 ( void * p_arg )
+{
+    OS_ERR      err;
+
+
+   (void)p_arg;                                      //没有用到形参，防止编译器报错
+    
+    LED_RGBOFF;                                      //关闭RGB LED
+    
+    while (DEF_TRUE)                                 //任务体，通常都写成一个死循环
+    {                                               
+        LED2_TOGGLE;                                 //LED2闪烁
+        OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err );  //延时5s
+    }
+		
+		
+}
+
+

@@ -133,4 +133,12 @@
  ******************************************************************************/
 void LED_GPIO_Config(void);
 
+// uCosIII 相关 宏定义 
+#define LED_RGBOFF RGB_LED_COLOR_OFF\
+                    CORE_BOARD_LED_ON
+
+#define LED1_TOGGLE CORE_BOARD_LED_TOGGLE
+#define LED2_TOGGLE RGB_RED_LED_TOGGLE
+
+
 #endif /* __BSP_LED_H */
