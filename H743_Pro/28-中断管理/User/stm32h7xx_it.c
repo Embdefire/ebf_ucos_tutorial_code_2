@@ -224,6 +224,7 @@ void KEY1_IRQHandler(void)
   * @ 参数    ： 无  
   * @ 返回值  ： 无
   ********************************************************************************/
+__IO int num=0;
 void KEY2_IRQHandler(void)
 {
   OS_ERR   err;
@@ -238,7 +239,7 @@ void KEY2_IRQHandler(void)
 									(OS_OPT   )OS_OPT_POST_NONE, //没选项要求
 									(OS_ERR  *)&err);            //返回错误类型		
 		
-		
+		num++;
     //清除中断标志位
 		__HAL_GPIO_EXTI_CLEAR_IT(KEY2_INT_GPIO_PIN);     
 	}  
