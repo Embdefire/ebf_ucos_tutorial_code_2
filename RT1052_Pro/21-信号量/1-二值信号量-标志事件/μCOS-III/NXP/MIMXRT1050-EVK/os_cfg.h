@@ -36,14 +36,14 @@
 #define OS_CFG_H
 
                                                                 /* --------------------------- MISCELLANEOUS --------------------------- */
-#define OS_CFG_APP_HOOKS_EN             DEF_ENABLED             /* Enable (DEF_ENABLED) application specific hooks                       */
-#define OS_CFG_ARG_CHK_EN               DEF_ENABLED             /* Enable (DEF_ENABLED) argument checking                                */
-#define OS_CFG_CALLED_FROM_ISR_CHK_EN   DEF_ENABLED             /* Enable (DEF_ENABLED) check for called from ISR                        */
-#define OS_CFG_DBG_EN                   DEF_DISABLED            /* Enable (DEF_ENABLED) debug code/variables                             */
-#define OS_CFG_DYN_TICK_EN              DEF_DISABLED            /* Enable (DEF_ENABLED) the Dynamic Tick                                 */
-#define OS_CFG_INVALID_OS_CALLS_CHK_EN  DEF_ENABLED             /* Enable (DEF_ENABLED) checks for invalid kernel calls                  */
-#define OS_CFG_OBJ_TYPE_CHK_EN          DEF_ENABLED             /* Enable (DEF_ENABLED) object type checking                             */
-#define OS_CFG_TS_EN                    DEF_DISABLED            /* Enable (DEF_ENABLED) time stamping                                    */
+#define OS_CFG_APP_HOOKS_EN             DEF_ENABLED               /* Enable (DEF_ENABLED) application specific hooks                       */
+#define OS_CFG_ARG_CHK_EN               DEF_ENABLED               /* Enable (DEF_ENABLED) argument checking                                */
+#define OS_CFG_CALLED_FROM_ISR_CHK_EN   DEF_ENABLED               /* Enable (DEF_ENABLED) check for called from ISR                        */
+#define OS_CFG_DBG_EN                   DEF_ENABLED               /* Enable (DEF_ENABLED) debug code/variables                             */
+#define OS_CFG_DYN_TICK_EN              DEF_DISABLED              /* Enable (DEF_ENABLED) the Dynamic Tick                                 */
+#define OS_CFG_INVALID_OS_CALLS_CHK_EN  DEF_ENABLED               /* Enable (DEF_ENABLED) checks for invalid kernel calls                  */
+#define OS_CFG_OBJ_TYPE_CHK_EN          DEF_ENABLED               /* Enable (DEF_ENABLED) object type checking                             */
+#define OS_CFG_TS_EN                    DEF_ENABLED              /* Enable (DEF_ENABLED) time stamping                                    */
 
 #define OS_CFG_PRIO_MAX                 64u                     /* Defines the maximum number of task priorities (see OS_PRIO data type) */
 

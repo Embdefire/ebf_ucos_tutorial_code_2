@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
-  * @brief   消息队列
+  * @brief   二值信号量-标志事件
   ******************************************************************************
   * @attention
   *
@@ -240,7 +240,6 @@ static  void  AppTaskLed1 ( void * p_arg )
 
 
 	  cpu_clk_freq = BSP_ClkFreqGet(kCLOCK_CpuClk);               //获取CPU时钟，时间戳是以该时钟计数
-
     while (DEF_TRUE) {                              //任务体
 					
 			OSSemPend ((OS_SEM   *)&SemOfKey,             //等待该信号量被发布

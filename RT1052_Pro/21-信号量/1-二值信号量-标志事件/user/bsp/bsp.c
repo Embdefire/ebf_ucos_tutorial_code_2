@@ -59,7 +59,7 @@ void  BSP_Init (void)
   PRINTF("SYSPLLPFD1:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd1Clk));
   PRINTF("SYSPLLPFD2:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd2Clk));
   PRINTF("SYSPLLPFD3:      %d Hz\r\n", CLOCK_GetFreq(kCLOCK_SysPllPfd3Clk)); 
-  PRINTF("这是一个[野火]-全系列开发板-uCOS-III  消息队列  实验！\n\n");	
+  PRINTF("这是一个[野火]-全系列开发板-uCOS-III  二值信号量-标志事件  实验！\n\n");	
 	/* 硬件BSP初始化统统放在这里，比如LED，串口，LCD等 */
   //串口已经初始化 不在这里重复初始化
 	/*	初始化 led	*/
