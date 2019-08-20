@@ -30,7 +30,10 @@
 #include  "app_cfg.h"
 //板级驱动
 #include "bsp.h" 
-
+#include "fsl_debug_console.h"
+#include "board.h"
+#include "pin_mux.h"
+#include "clock_config.h"
 
 /*
 *********************************************************************************************************
@@ -227,10 +230,10 @@ static  void  AppTaskLed1 ( void * p_arg )
 		else                                               //如果累加到10
 		{
 			OSTaskRegSet ( 0, 0, 0, & err );                 //将任务寄存器值归0
-			printf("恢复LED2任务！\n");
+			PRINTF("恢复LED2任务！\n");
 			OSTaskResume ( & AppTaskLed2TCB, & err );        //恢复 LED2 任务
      
-			printf("恢复LED3任务！\n");
+			PRINTF("恢复LED3任务！\n");
 			OSTaskResume ( & AppTaskLed3TCB, & err );        //恢复 LED3 任务
 			
 		}
@@ -270,7 +273,7 @@ static  void  AppTaskLed2 ( void * p_arg )
 		else                                             //如果累加到5
 		{
 			OSTaskRegSet ( 0, 0, 0, & err );               //将任务寄存器值归0
-			printf("挂起LED2任务（自身）！\n");
+			PRINTF("挂起LED2任务（自身）！\n");
 			OSTaskSuspend ( 0, & err );                    //挂起自身
 			
 		}
@@ -310,7 +313,7 @@ static  void  AppTaskLed3 ( void * p_arg )
 		else                                             //如果累加到5
 		{
 			OSTaskRegSet ( 0, 0, 0, & err );               //将任务寄存器值归零
-			printf("挂起LED3任务（自身）！\n");
+			PRINTF("挂起LED3任务（自身）！\n");
 			OSTaskSuspend ( 0, & err );                    //挂起自身
 		}
 
