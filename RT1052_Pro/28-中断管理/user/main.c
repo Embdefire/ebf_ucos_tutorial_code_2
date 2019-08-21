@@ -4,7 +4,7 @@
   * @author  fire
   * @version V1.0
   * @date    2019-xx-xx
-  * @brief   内存管理
+  * @brief   中断管理
   ******************************************************************************
   * @attention
   *
@@ -219,11 +219,7 @@ static  void  AppTaskUsart ( void * p_arg )
 
 
     PRINTF("收到数据:%s\n",ucTemp);
-
-    memset(ucTemp,0,1000);/* 清零 */
-
-
-		
+    memset(ucTemp,0,UCTEMP_LEN);/* 清零 */
 	}
 	
 }
@@ -265,46 +261,6 @@ static  void  AppTaskKey ( void * p_arg )
 
 		PRINTF ( "触发按键中断,最大中断时间是%dus\r\n", 
 								ts_int / ( cpu_clk_freq / 1000000 ) );  
-		OSTimeDlyHMSM(0u, 0u, 0u, 500u,
-							OS_OPT_TIME_HMSM_STRICT,
-							&err);
-		//PRINTF ( "触发按键中断\r\n");  		
-
-		
-
-//		      /* WAUP按键的标志 */
-//      /* 若g_KeyDown为true表明按键被按下 */
-//      if(g_KeyDown[CORE_BOARD_WAUP_KEY_ID])
-//      {
-//          /* 稍微延时 */
-//          delay(100);
-//          /* 等待至按键被释放 （高电平）*/
-//          if(1 == GPIO_PinRead(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN))
-//          {
-//              /* 翻转LED灯，串口输出信息 */
-//              CORE_BOARD_LED_TOGGLE;
-//              PRINTF("检测到 %s 按键操作\r\n", CORE_BOARD_WAUP_KEY_NAME);
-//          }
-//          /* 重新设置标志位 */
-//          g_KeyDown[CORE_BOARD_WAUP_KEY_ID] = false; 
-//      }
-//      
-//      /* MODE按键的标志 */
-//      /* 若g_KeyDown为true表明按键被按下 */
-//      if(g_KeyDown[CORE_BOARD_MODE_KEY_ID])
-//      {
-//          /* 稍微延时 */
-//          delay(100);
-//          /* 等待至按键被释放 （高电平）*/
-//          if(1 == GPIO_PinRead(CORE_BOARD_MODE_KEY_GPIO, CORE_BOARD_MODE_KEY_GPIO_PIN))
-//          {
-//              /* 翻转LED灯，串口输出信息 */
-//              CORE_BOARD_LED_TOGGLE;
-//              PRINTF("检测到 %s 按键操作\r\n", CORE_BOARD_MODE_KEY_NAME);
-//          }
-//          /* 重新设置标志位 */
-//          g_KeyDown[CORE_BOARD_MODE_KEY_ID] = false;      
-//			}
 
 	}
 	

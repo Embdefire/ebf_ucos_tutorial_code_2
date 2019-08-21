@@ -23,7 +23,8 @@ extern  "C" {                                  /* See Note #1.                  
 */
 #include "./led/bsp_led.h" 
 #include "./key/bsp_key.h"   
-#include "./bsp/uart/bsp_uart.h"
+//#include "./bsp/uart/bsp_uart.h"
+#include "./bsp/dma_uart/bsp_dma_uart.h"
 /*
 *********************************************************************************************************
 *                                             º¯ÊýÔ­ÐÍ

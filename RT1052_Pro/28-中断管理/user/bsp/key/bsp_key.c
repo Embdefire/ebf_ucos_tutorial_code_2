@@ -21,7 +21,7 @@
 
 #include "./bsp/nvic/bsp_nvic.h"
 #include "./bsp/key/bsp_key.h"
-
+#include "./delay/core_delay.h"   
 #include "fsl_debug_console.h"
 #include  "os.h"
 /******************************************************************
@@ -99,7 +99,7 @@ static void Key_GPIO_Mode_Config(void)
   /** 核心板的按键，GPIO配置 **/       
   key_config.direction = kGPIO_DigitalInput;    //输入模式
   key_config.outputLogic =  1;                  //默认高电平（输入模式时无效）
-  key_config.interruptMode = kGPIO_IntFallingEdge; //低电平触发中断
+  key_config.interruptMode = kGPIO_IntLowLevel;//kGPIO_IntFallingEdge; //低电平触发中断
   
   /* 初始化 KEY GPIO. */
   GPIO_PinInit(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN, &key_config);
@@ -141,10 +141,7 @@ void Key_IT_GPIO_Config(void)
   Key_GPIO_Mode_Config();
   Key_Interrupt_Config();
 }
-
-
 extern OS_TCB	 AppTaskKeyTCB;
-__IO int test_num=0;
 /********************中断服务函数**************************/
 /**
  * @brief  GPIO 输入中断服务函数
@@ -159,40 +156,29 @@ __IO int test_num=0;
 void CORE_BOARD_WAUP_KEY_IRQHandler(void)
 { 
 		OS_ERR   err;
+
 		OSIntEnter(); 	                             //进入中断
-	
-    /* 清除中断标志位 */
-    GPIO_PortClearInterruptFlags(CORE_BOARD_WAUP_KEY_GPIO,
-                                 1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);  
-	 g_KeyDown[CORE_BOARD_WAUP_KEY_ID] = true;
-  
-		/* 发送任务信号量到任务 AppTaskKey */
-		OSTaskSemPost((OS_TCB  *)&AppTaskKeyTCB,   //目标任务
-									(OS_OPT   )OS_OPT_POST_NONE, //没选项要求
-									(OS_ERR  *)&err);            //返回错误类型		
-		test_num++;
-		OSIntExit();	                               //退出中断
-	
+		/*	检测按键中断标志	*/	
+		if(GPIO_GetPinsInterruptFlags(CORE_BOARD_WAUP_KEY_GPIO)&(1U<<CORE_BOARD_WAUP_KEY_GPIO_PIN))
+		{
+			CPU_TS_Tmr_Delay_MS(10);
+				/*	判断按键是否 按下	*/
+			if(GPIO_PinRead(CORE_BOARD_WAUP_KEY_GPIO, CORE_BOARD_WAUP_KEY_GPIO_PIN) == 1)
+			{
+				/* 发送任务信号量到任务 AppTaskKey */
+				OSTaskSemPost((OS_TCB  *)&AppTaskKeyTCB,   //目标任务
+										(OS_OPT   )OS_OPT_POST_NONE, //没选项要求
+										(OS_ERR  *)&err);            //返回错误类型		
+			}	
+		}
+			/* 清除中断标志位 */
+		GPIO_PortClearInterruptFlags(CORE_BOARD_WAUP_KEY_GPIO,
+																	 1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);  
 #if defined __CORTEX_M && (__CORTEX_M == 4U)
     __DSB();
 #endif
+		OSIntExit();	                               //退出中断
 }
-//void CORE_BOARD_WAUP_KEY_IRQHandler(void)
-//{ 
-//		
-//    /* 清除中断标志位 */
-//    GPIO_PortClearInterruptFlags(CORE_BOARD_WAUP_KEY_GPIO,
-//                                 1U << CORE_BOARD_WAUP_KEY_GPIO_PIN);  
-//	 g_KeyDown[CORE_BOARD_WAUP_KEY_ID] = true;
-//  
-//		test_num++;
-//		
-//#if defined __CORTEX_M && (__CORTEX_M == 4U)
-//    __DSB();
-//#endif
-//}
-
-
 
 /**
  * @brief  GPIO 输入中断服务函数
@@ -209,27 +195,27 @@ void CORE_BOARD_MODE_KEY_IRQHandler(void)
 		OS_ERR   err;
 		OSIntEnter(); 	                             //进入中断
 
-    /* 清除中断标志位 */
+			/*	检测按键中断标志	*/	
+		if(GPIO_GetPinsInterruptFlags(CORE_BOARD_MODE_KEY_GPIO)&(1U<<CORE_BOARD_MODE_KEY_GPIO_PIN))
+		{
+			CPU_TS_Tmr_Delay_MS(10);
+				/*	判断按键是否 按下	*/
+			if(GPIO_PinRead(CORE_BOARD_MODE_KEY_GPIO, CORE_BOARD_MODE_KEY_GPIO_PIN) == 1)
+			{
+					/* 发送任务信号量到任务 AppTaskKey */
+				OSTaskSemPost((OS_TCB  *)&AppTaskKeyTCB,   //目标任务
+											(OS_OPT   )OS_OPT_POST_NONE, //没选项要求
+											(OS_ERR  *)&err);            //返回错误类型		
+			}
+		}
+		/* 清除中断标志位 */
     GPIO_PortClearInterruptFlags(CORE_BOARD_MODE_KEY_GPIO,
                                  1U << CORE_BOARD_MODE_KEY_GPIO_PIN);  
-		g_KeyDown[CORE_BOARD_MODE_KEY_ID] = true;
-	
-			/* 发送任务信号量到任务 AppTaskKey */
-		OSTaskSemPost((OS_TCB  *)&AppTaskKeyTCB,   //目标任务
-									(OS_OPT   )OS_OPT_POST_NONE, //没选项要求
-									(OS_ERR  *)&err);            //返回错误类型		
-	
-		OSIntExit();	                               //退出中断	
-
 #if defined __CORTEX_M && (__CORTEX_M == 4U)
     __DSB();
 #endif
-
+		OSIntExit();	                               //退出中断	
 }
-
-
-
-
 
 
 

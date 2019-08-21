@@ -436,6 +436,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -602,14 +617,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1295,6 +1315,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1461,14 +1496,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2154,6 +2194,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2320,14 +2375,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3014,6 +3074,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3180,14 +3255,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3874,6 +3954,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4040,14 +4135,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4734,6 +4834,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4900,14 +5015,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5594,6 +5714,21 @@
               <FileType>5</FileType>
               <FilePath>..\..\libraries\drivers\fsl_iomuxc.h</FilePath>
             </File>
+            <File>
+              <FileName>fsl_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_edma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dmamux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_dmamux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpuart_edma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\fsl_lpuart_edma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5760,14 +5895,19 @@
               <FilePath>..\..\user\bsp\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\user\bsp\uart\bsp_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_nvic .c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\user\bsp\nvic\bsp_nvic .c</FilePath>
+            </File>
+            <File>
+              <FileName>core_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\delay\core_delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_dma_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\user\bsp\dma_uart\bsp_dma_uart.c</FilePath>
             </File>
           </Files>
         </Group>

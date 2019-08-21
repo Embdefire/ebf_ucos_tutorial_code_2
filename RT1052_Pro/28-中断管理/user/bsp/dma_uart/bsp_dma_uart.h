@@ -1,8 +1,14 @@
-#ifndef __USART_H
-#define __USART_H
+#ifndef __BSP_DMA_UART_H
+#define __BSP_DMA_UART_H
 
-
+#include "fsl_dmamux.h"
 #include "fsl_common.h"
+#include "fsl_iomuxc.h"
+#include "pad_config.h"
+#include "fsl_lpuart.h"
+#include "board.h"
+#include "fsl_lpuart_edma.h"
+
 
 
 /*********************************************************
@@ -30,28 +36,6 @@
 #define UART_TX_GPIO_PIN            (12U)
 #define UART_TX_IOMUXC              IOMUXC_GPIO_AD_B0_12_LPUART1_TX
 
-/*******************************************************************************
- * UART1 串口号、中断服务函数、中断号重定义
- ******************************************************************************/
-
-#define DEBUG_UARTx LPUART1
-#define DEBUG_UART_IRQ LPUART1_IRQn
-#define DEBUG_UART_IRQHandler LPUART1_IRQHandler
-
-/*******************************************************************************
-* UART1 串口配置参数定义，默认参数如下:
- * .baudRate_Bps = 115200U;
- * .parityMode = kLPUART_ParityDisabled;
- * .stopBitCount = kLPUART_OneStopBit;
- * .txFifoWatermark = 0;
- * .rxFifoWatermark = 0;
- * .enableTx = false;
- * .enableRx = false;
- ******************************************************************************/
-#define  DEBUG_UART_BAUDRATE           115200U
-#define  DEBUG_UART_STOP_BIT           kLPUART_OneStopBit
-#define  DEBUG_UART_ENABLE_SEND        true
-#define  DEBUG_UART_ENABLE_RESIVE      true
 
 /*******************************************************************************
  * uart引脚配置
@@ -79,7 +63,7 @@
                                         SPEED_1_MEDIUM_100MHz| \
                                         ODE_0_OPEN_DRAIN_DISABLED| \
                                         PKE_1_PULL_KEEPER_ENABLED| \
-                                        PUE_0_KEEPER_SELECTED| \
+                                        PUE_1_PULL_SELECTED| \
                                         PUS_3_22K_OHM_PULL_UP| \
                                         HYS_0_HYSTERESIS_DISABLED)
     /* 配置说明 : */
@@ -88,23 +72,55 @@
         带宽配置 : medium(100MHz)
         开漏配置: 关闭 
         拉/保持器配置: 使能
-        拉/保持器选择: 保持器
+        拉/保持器选择: 上下拉
         上拉/下拉选择: 22K欧姆上拉(选择了保持器此配置无效)
-        滞回器配置: 禁止 */ 
+        滞回器配置: 禁止 */    
+   
+   
+   
+
+/*宏定义*/
+/*定义本程序使用的串口，
+*注意:LPUART1是系统调试串口，在系统初始化时已经完成了相关GPIO的初始化，如果使用其他
+*     串口，使用之前一定要初始化对应引脚。
+*/
+#define DEMO_LPUART LPUART1               
+#define DEMO_LPUART_IRqn LPUART1_IRQn  
+
+/*接收数据存储地址*/
+#define RX_BUFFER_LEN 100
+
+extern int Get_Uart_Data_flag;
+extern uint32_t data;
+/*句柄外部调用*/
+extern lpuart_edma_handle_t g_lpuartEdmaHandle;
+extern edma_handle_t g_lpuartTxEdmaHandle;
+extern edma_handle_t g_lpuartRxEdmaHandle;
+extern lpuart_transfer_t receiveXfer;
+/*数组外部调用*/
+extern uint8_t g_rxBuffer[100];
+
+#define UCTEMP_LEN 1000
+
+#define DEMO_LPUART_CLK_FREQ BOARD_DebugConsoleSrcFreq() //UART时钟频率
+#define LPUART_TX_DMA_CHANNEL 0U                         //UART发送使用的DMA通道号
+#define LPUART_RX_DMA_CHANNEL 1U                         //UART接收使用的DMA通道号
+#define LPUART_TX_DMA_REQUEST kDmaRequestMuxLPUART1Tx    //定义串口DMA发送请求源
+#define LPUART_RX_DMA_REQUEST kDmaRequestMuxLPUART1Rx    //定义串口DMA接收请求源
+#define EXAMPLE_LPUART_DMAMUX_BASEADDR DMAMUX            //定义所使用的DMA多路复用模块(DMAMUX)
+#define EXAMPLE_LPUART_DMA_BASEADDR DMA0                 //定义使用的DAM
+#define ECHO_BUFFER_LENGTH 8                             //UART接收和发送数据缓冲区长度
+
+#define DEBUG_UART_IRQHandler LPUART1_IRQHandler
+
 
 /*******************************************************************************
- * 函数声明
+ * Prototypes
  ******************************************************************************/
- void UART_Config(void);
- void UART_ModeConfig(void);
- void UART_IOMUXC_MUX_Config(void);
- void UART_IOMUXC_PAD_Config(void);
- 
- void Uart_SendByte(LPUART_Type *base, uint8_t data);
- void Uart_SendString( LPUART_Type *base,  const char *str);
- void Uart_SendHalfWord(LPUART_Type *base, uint16_t ch);
+void UART_GPIO_Init(void);
+void UART_Init(void);
+void UART_DMA_Init(void);
+/* LPUART 回调函数 */
+void LPUART_UserCallback(LPUART_Type *base, lpuart_edma_handle_t *handle, status_t status, void *userData);
 
-
-#endif /* __USART_H */
-
-
+#endif /* __BSP_DMA_UART_H */

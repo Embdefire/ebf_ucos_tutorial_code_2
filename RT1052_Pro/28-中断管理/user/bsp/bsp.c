@@ -66,6 +66,7 @@ void  BSP_Init (void)
 	LED_GPIO_Config();
 	/*	初始化 按键	*/
 	Key_IT_GPIO_Config();
-	/*  串口初始化  */
-	UART_Config();
+	/*  串口DMA初始化  */
+	UART_Init();
+	UART_DMA_Init();
 }
