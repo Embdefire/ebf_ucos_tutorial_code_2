@@ -1329,8 +1329,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\drivers\fsl_edma.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_edma.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\drivers\fsl_dmamux.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_dmamux.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1341,8 +1341,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\libraries\drivers\fsl_dmamux.c</PathWithFileName>
-      <FilenameWithoutPath>fsl_dmamux.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\libraries\drivers\fsl_edma.c</PathWithFileName>
+      <FilenameWithoutPath>fsl_edma.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1557,8 +1557,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\BSP\Interrupts\bsp_int_armv7m.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_int_armv7m.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\BSP\bsp_clk.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_clk.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1569,8 +1569,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\BSP\MIMXRT1050-EVK\bsp_clk.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_clk.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\BSP\bsp_cpu.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_cpu.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1581,8 +1581,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\BSP\MIMXRT1050-EVK\bsp_cpu.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_cpu.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\BSP\bsp_int_armv7m.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_int_armv7m.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1593,7 +1593,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\BSP\MIMXRT1050-EVK\bsp_os.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\BSP\bsp_os.c</PathWithFileName>
       <FilenameWithoutPath>bsp_os.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1649,7 +1649,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\app_cfg.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\app_cfg.h</PathWithFileName>
       <FilenameWithoutPath>app_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1661,7 +1661,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\cpu_cfg.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\cpu_cfg.h</PathWithFileName>
       <FilenameWithoutPath>cpu_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1673,7 +1673,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\lib_cfg.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\lib_cfg.h</PathWithFileName>
       <FilenameWithoutPath>lib_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1685,7 +1685,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\os_app_hooks.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\os_app_hooks.c</PathWithFileName>
       <FilenameWithoutPath>os_app_hooks.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1697,7 +1697,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\os_app_hooks.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\os_app_hooks.h</PathWithFileName>
       <FilenameWithoutPath>os_app_hooks.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1709,7 +1709,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\os_cfg.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\os_cfg.h</PathWithFileName>
       <FilenameWithoutPath>os_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1721,7 +1721,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\NXP\MIMXRT1050-EVK\os_cfg_app.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\cfg\os_cfg_app.h</PathWithFileName>
       <FilenameWithoutPath>os_cfg_app.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1745,8 +1745,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\nvic\bsp_nvic .c</PathWithFileName>
-      <FilenameWithoutPath>bsp_nvic .c</FilenameWithoutPath>
+      <PathWithFileName>..\..\user\bsp\dma_uart\bsp_dma_uart.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_dma_uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1769,8 +1769,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\user\bsp\dma_uart\bsp_dma_uart.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_dma_uart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\user\bsp\nvic\bsp_nvic .c</PathWithFileName>
+      <FilenameWithoutPath>bsp_nvic .c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1789,7 +1789,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\cpu_cache.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\cpu_cache.h</PathWithFileName>
       <FilenameWithoutPath>cpu_cache.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1801,7 +1801,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\cpu_core.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\cpu_core.c</PathWithFileName>
       <FilenameWithoutPath>cpu_core.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1813,7 +1813,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\cpu_core.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\cpu_core.h</PathWithFileName>
       <FilenameWithoutPath>cpu_core.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1825,7 +1825,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\cpu_def.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\cpu_def.h</PathWithFileName>
       <FilenameWithoutPath>cpu_def.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1837,7 +1837,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\ARM-Cortex-M4\IAR\cpu.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\ARM-Cortex-M4\IAR\cpu.h</PathWithFileName>
       <FilenameWithoutPath>cpu.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1849,7 +1849,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\ARM-Cortex-M4\IAR\cpu_a.asm</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\ARM-Cortex-M4\IAR\cpu_a.asm</PathWithFileName>
       <FilenameWithoutPath>cpu_a.asm</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1861,7 +1861,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-CPU\ARM-Cortex-M4\IAR\cpu_c.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-CPU\ARM-Cortex-M4\IAR\cpu_c.c</PathWithFileName>
       <FilenameWithoutPath>cpu_c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1881,7 +1881,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_ascii.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_ascii.c</PathWithFileName>
       <FilenameWithoutPath>lib_ascii.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1889,24 +1889,24 @@
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>52</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_math.c</PathWithFileName>
-      <FilenameWithoutPath>lib_math.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_ascii.h</PathWithFileName>
+      <FilenameWithoutPath>lib_ascii.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>53</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_mem.c</PathWithFileName>
-      <FilenameWithoutPath>lib_mem.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_def.h</PathWithFileName>
+      <FilenameWithoutPath>lib_def.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1917,32 +1917,32 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_str.c</PathWithFileName>
-      <FilenameWithoutPath>lib_str.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_math.c</PathWithFileName>
+      <FilenameWithoutPath>lib_math.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>55</FileNumber>
-      <FileType>2</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\Ports\ARM-Cortex-M4\IAR\lib_mem_a.asm</PathWithFileName>
-      <FilenameWithoutPath>lib_mem_a.asm</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_math.h</PathWithFileName>
+      <FilenameWithoutPath>lib_math.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>56</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_ascii.h</PathWithFileName>
-      <FilenameWithoutPath>lib_ascii.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_mem.c</PathWithFileName>
+      <FilenameWithoutPath>lib_mem.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1953,20 +1953,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_def.h</PathWithFileName>
-      <FilenameWithoutPath>lib_def.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_mem.h</PathWithFileName>
+      <FilenameWithoutPath>lib_mem.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>58</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_math.h</PathWithFileName>
-      <FilenameWithoutPath>lib_math.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_str.c</PathWithFileName>
+      <FilenameWithoutPath>lib_str.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1977,20 +1977,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_mem.h</PathWithFileName>
-      <FilenameWithoutPath>lib_mem.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\lib_str.h</PathWithFileName>
+      <FilenameWithoutPath>lib_str.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
       <FileNumber>60</FileNumber>
-      <FileType>5</FileType>
+      <FileType>2</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uC-LIB\lib_str.h</PathWithFileName>
-      <FilenameWithoutPath>lib_str.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\μCOS-III\uC-LIB\Ports\ARM-Cortex-M4\IAR\lib_mem_a.asm</PathWithFileName>
+      <FilenameWithoutPath>lib_mem_a.asm</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2009,7 +2009,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os.h</PathWithFileName>
       <FilenameWithoutPath>os.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2021,7 +2021,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_cfg_app.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_cfg_app.c</PathWithFileName>
       <FilenameWithoutPath>os_cfg_app.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2033,7 +2033,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_core.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_core.c</PathWithFileName>
       <FilenameWithoutPath>os_core.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2045,7 +2045,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_dbg.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_dbg.c</PathWithFileName>
       <FilenameWithoutPath>os_dbg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2057,7 +2057,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_flag.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_flag.c</PathWithFileName>
       <FilenameWithoutPath>os_flag.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2069,7 +2069,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_mem.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_mem.c</PathWithFileName>
       <FilenameWithoutPath>os_mem.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2081,7 +2081,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_mon.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_mon.c</PathWithFileName>
       <FilenameWithoutPath>os_mon.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2093,7 +2093,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_msg.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_msg.c</PathWithFileName>
       <FilenameWithoutPath>os_msg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2105,7 +2105,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_mutex.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_mutex.c</PathWithFileName>
       <FilenameWithoutPath>os_mutex.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2117,7 +2117,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_prio.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_prio.c</PathWithFileName>
       <FilenameWithoutPath>os_prio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2129,7 +2129,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_q.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_q.c</PathWithFileName>
       <FilenameWithoutPath>os_q.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2141,7 +2141,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_sem.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_sem.c</PathWithFileName>
       <FilenameWithoutPath>os_sem.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2153,7 +2153,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_stat.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_stat.c</PathWithFileName>
       <FilenameWithoutPath>os_stat.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2165,7 +2165,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_task.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_task.c</PathWithFileName>
       <FilenameWithoutPath>os_task.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2177,7 +2177,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_tick.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_tick.c</PathWithFileName>
       <FilenameWithoutPath>os_tick.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2189,7 +2189,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_time.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_time.c</PathWithFileName>
       <FilenameWithoutPath>os_time.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2201,7 +2201,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_tmr.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_tmr.c</PathWithFileName>
       <FilenameWithoutPath>os_tmr.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2213,7 +2213,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_trace.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_trace.h</PathWithFileName>
       <FilenameWithoutPath>os_trace.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2225,7 +2225,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_type.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_type.h</PathWithFileName>
       <FilenameWithoutPath>os_type.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2237,7 +2237,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Source\os_var.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Source\os_var.c</PathWithFileName>
       <FilenameWithoutPath>os_var.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2257,7 +2257,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu.h</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu.h</PathWithFileName>
       <FilenameWithoutPath>os_cpu.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2269,7 +2269,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu_a.asm</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu_a.asm</PathWithFileName>
       <FilenameWithoutPath>os_cpu_a.asm</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2281,7 +2281,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\μCOS-III\Micrium\Software\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu_c.c</PathWithFileName>
+      <PathWithFileName>..\..\μCOS-III\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\IAR\os_cpu_c.c</PathWithFileName>
       <FilenameWithoutPath>os_cpu_c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
