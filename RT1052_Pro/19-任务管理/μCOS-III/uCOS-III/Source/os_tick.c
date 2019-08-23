@@ -226,8 +226,8 @@ void  OS_TickTaskInit (OS_ERR  *p_err)
 */
 
 void  OS_TickListInsert (OS_TICK_LIST  *p_list,
-                         OS_TCB        *p_tcb,
-                         OS_TICK        time)
+                         OS_TCB        *p_tcb, 
+                         OS_TICK        time)  
 {
     OS_TCB  *p_tcb1;
     OS_TCB  *p_tcb2;
@@ -237,49 +237,49 @@ void  OS_TickListInsert (OS_TICK_LIST  *p_list,
 #endif
 
 
-    if (p_list->TCB_Ptr == (OS_TCB *)0) {                       /* Is the list empty?                                   */
-        p_tcb->TickRemain  = time;                              /* Yes, Store time in TCB                               */
+    if (p_list->TCB_Ptr == (OS_TCB *)0) { /* Is the list empty? */
+        p_tcb->TickRemain  = time;/* Yes, Store time in TCB*/
         p_tcb->TickNextPtr = (OS_TCB *)0;
         p_tcb->TickPrevPtr = (OS_TCB *)0;
-        p_tcb->TickListPtr = p_list;                            /* Link to this list                                    */
-        p_list->TCB_Ptr    = p_tcb;                             /* Point to TCB of task to place in the list            */
+        p_tcb->TickListPtr = p_list;/* Link to this list*/
+        p_list->TCB_Ptr    = p_tcb;/* Point to TCB of task to place in the list*/
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
-        p_list->NbrEntries = 1u;                                /* List contains 1 entry                                */
+        p_list->NbrEntries = 1u;/* List contains 1 entry*/
 #endif
 #if (OS_CFG_DYN_TICK_EN == DEF_ENABLED)
         tick_step = time;
 #endif
     } else {
         p_tcb1 = p_list->TCB_Ptr;
-        p_tcb2 = p_list->TCB_Ptr;                               /* No,  Insert somewhere in the list in delta order     */
+        p_tcb2 = p_list->TCB_Ptr;/* No,  Insert somewhere in the list in delta order*/
         remain = time;
         while (p_tcb2 != (OS_TCB *)0) {
             if (remain <= p_tcb2->TickRemain) {
-                if (p_tcb2->TickPrevPtr == (OS_TCB *)0) {       /* Insert before the first entry in the list?           */
-                    p_tcb->TickRemain   = remain;               /* Yes, Store remaining time                            */
+                if (p_tcb2->TickPrevPtr == (OS_TCB *)0) {/* Insert before the first entry in the list? */
+                    p_tcb->TickRemain   = remain;/* Yes, Store remaining time*/
                     p_tcb->TickPrevPtr  = (OS_TCB *)0;
                     p_tcb->TickNextPtr  = p_tcb2;
-                    p_tcb->TickListPtr  = p_list;               /* Link TCB to this list                                */
-                    p_tcb2->TickRemain -= remain;               /* Reduce time of next entry in the list                */
+                    p_tcb->TickListPtr  = p_list;/* Link TCB to this list*/
+                    p_tcb2->TickRemain -= remain;/* Reduce time of next entry in the list*/
                     p_tcb2->TickPrevPtr = p_tcb;
-                    p_list->TCB_Ptr     = p_tcb;                /* Add TCB to the list                                  */
+                    p_list->TCB_Ptr     = p_tcb;/* Add TCB to the list*/
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
-                    p_list->NbrEntries++;                       /* List contains an extra entry                         */
+                    p_list->NbrEntries++;/* List contains an extra entry*/
 #endif
 #if (OS_CFG_DYN_TICK_EN == DEF_ENABLED)
                     tick_step = remain;
 #endif
-                } else {                                        /* No,  Insert somewhere further in the list            */
+                } else { /* No,  Insert somewhere further in the list*/
                     p_tcb1              = p_tcb2->TickPrevPtr;
-                    p_tcb->TickRemain   = remain;               /* Store remaining time                                 */
-                    p_tcb->TickPrevPtr  = p_tcb1;
-                    p_tcb->TickNextPtr  = p_tcb2;
-                    p_tcb->TickListPtr  = p_list;               /* TCB points to this list                              */
-                    p_tcb2->TickRemain -= remain;               /* Reduce time of next entry in the list                */
+                    p_tcb->TickRemain   = remain;/* Store remaining time*/
+                    p_tcb->TickPrevPtr  = p_tcb1;                          
+                    p_tcb->TickNextPtr  = p_tcb2;                          
+                    p_tcb->TickListPtr  = p_list;/* TCB points to this list*/
+                    p_tcb2->TickRemain -= remain;/* Reduce time of next entry in the list*/
                     p_tcb2->TickPrevPtr = p_tcb;
                     p_tcb1->TickNextPtr = p_tcb;
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
-                    p_list->NbrEntries++;                       /* List contains an extra entry                         */
+                    p_list->NbrEntries++;/* List contains an extra entry*/
 #endif
                 }
 
@@ -292,7 +292,7 @@ void  OS_TickListInsert (OS_TICK_LIST  *p_list,
 
                 return;
             } else {
-                remain -= p_tcb2->TickRemain;                   /* Point to the next TCB in the list                    */
+                remain -= p_tcb2->TickRemain; /* Point to the next TCB in the list*/
                 p_tcb1  = p_tcb2;
                 p_tcb2  = p_tcb2->TickNextPtr;
             }
@@ -300,10 +300,10 @@ void  OS_TickListInsert (OS_TICK_LIST  *p_list,
         p_tcb->TickRemain   = remain;
         p_tcb->TickPrevPtr  = p_tcb1;
         p_tcb->TickNextPtr  = (OS_TCB *)0;
-        p_tcb->TickListPtr  = p_list;                           /* Link the list to the TCB                             */
+        p_tcb->TickListPtr  = p_list;/* Link the list to the TCB*/
         p_tcb1->TickNextPtr = p_tcb;
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
-        p_list->NbrEntries++;                                   /* List contains an extra entry                         */
+        p_list->NbrEntries++; /* List contains an extra entry*/
 #endif
     }
 

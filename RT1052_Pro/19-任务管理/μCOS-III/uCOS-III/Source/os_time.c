@@ -82,74 +82,77 @@ const  CPU_CHAR  *os_time__c = "$Id: $";
 ************************************************************************************************************************
 */
 
-void  OSTimeDly (OS_TICK   dly,
-                 OS_OPT    opt,
-                 OS_ERR   *p_err)
+void  OSTimeDly (OS_TICK   dly,       //延时的时钟节拍数
+                 OS_OPT    opt,         //选项
+                 OS_ERR   *p_err)       //返回错误类型
 {
 #if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-    CPU_SR_ALLOC();
+     CPU_SR_ALLOC();                                    
+	   //使用到临界段（在关/开中断时）时必需该宏，该宏声明和定义一个局部变
+	   //量，用于保存关中断前的 CPU 状态寄存器 SR（临界段关中断只需保存SR）
+	   //，开中断时将该值还原。
 #endif
 
 
-#ifdef OS_SAFETY_CRITICAL
-    if (p_err == (OS_ERR *)0) {
-        OS_SAFETY_CRITICAL_EXCEPTION();
-        return;
+#ifdef OS_SAFETY_CRITICAL              //如果使能（默认禁用）了安全检测
+    if (p_err == (OS_ERR *)0) {                    //如果错误类型实参为空
+        OS_SAFETY_CRITICAL_EXCEPTION();            //执行安全检测异常函数
+        return;                                    //返回，不执行延时操作
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
-       *p_err = OS_ERR_TIME_DLY_ISR;
-        return;
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED) //如果使能（默认使能）了中断中非法调用检测  
+    if (OSIntNestingCtr > 0u) {     	//如果该延时函数是在中断中被调用       
+       *p_err = OS_ERR_TIME_DLY_ISR;	 //错误类型为“在中断函数中延时”
+        return;                     	 //返回，不执行延时操作
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)       
     if (OSRunning != OS_STATE_OS_RUNNING) {
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return;
     }
 #endif
-
-    if (OSSchedLockNestingCtr > 0u) {                           /* Can't delay when the scheduler is locked             */
-       *p_err = OS_ERR_SCHED_LOCKED;
-        return;
+	/* 当调度器被锁时任务不能延时 */	
+    if (OSSchedLockNestingCtr > 0u) {//如果调度器被锁                    
+       *p_err = OS_ERR_SCHED_LOCKED; //错误类型为“调度器被锁”
+        return;                      //返回，不执行延时操作
     }
 
-    switch (opt) {
-        case OS_OPT_TIME_DLY:
-        case OS_OPT_TIME_TIMEOUT:
-        case OS_OPT_TIME_PERIODIC:
-             if (dly == 0u) {                                   /* 0 means no delay!                                    */
-                *p_err = OS_ERR_TIME_ZERO_DLY;
-                 return;
+    switch (opt) {                     //根据延时选项参数 opt 分类操作
+        case OS_OPT_TIME_DLY:       //如果选择相对时间（从现在起延时多长时间）
+        case OS_OPT_TIME_TIMEOUT:              //如果选择超时（实际同上）
+        case OS_OPT_TIME_PERIODIC:             //如果选择周期性延时
+             if (dly == 0u) {                  //如果参数 dly 为0（0意味不延时）         
+                *p_err = OS_ERR_TIME_ZERO_DLY;         //错误类型为“0延时”
+                 return;                              //返回，不执行延时操作
              }
              break;
 
         case OS_OPT_TIME_MATCH:
              break;
-
-        default:
-            *p_err = OS_ERR_OPT_INVALID;
-             return;
+							 //如果选择绝对时间（匹配系统开始运行（OSStart()）后的时钟节拍数）  
+        default:                           //如果选项超出范围
+            *p_err = OS_ERR_OPT_INVALID; //错误类型为“选项非法”
+             return;                    //返回，不执行延时操作
     }
 
 #if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-    CPU_CRITICAL_ENTER();
-    OS_TickListInsertDly(OSTCBCurPtr,
+    CPU_CRITICAL_ENTER();             //修改当前任务的任务状态为延时状态
+    OS_TickListInsertDly(OSTCBCurPtr,//将当前任务插入到节拍列表
                          dly,
                          opt,
                          p_err);
-    if (*p_err != OS_ERR_NONE) {
-         CPU_CRITICAL_EXIT();
-         return;
+    if (*p_err != OS_ERR_NONE) {//如果当前任务插入节拍列表时出现错误
+         CPU_CRITICAL_EXIT();//退出临界段（无调度）
+         return;             //返回，不执行延时操作
     }
 
-    OS_TRACE_TASK_DLY(dly);
-    OS_RdyListRemove(OSTCBCurPtr);                              /* Remove current task from ready list                  */
-    CPU_CRITICAL_EXIT();
-    OSSched();                                                  /* Find next task to run!                               */
+    OS_TRACE_TASK_DLY(dly);         //从就绪列表移除当前任务
+    OS_RdyListRemove(OSTCBCurPtr);      //退出临界段（无调度）                    
+    CPU_CRITICAL_EXIT();                  //任务切换
+    OSSched();                           //错误类型为“无错误”                    
 #endif
 }
 
@@ -382,7 +385,6 @@ void  OSTimeDlyResume (OS_TCB  *p_tcb,
                        OS_ERR  *p_err)
 {
     CPU_SR_ALLOC();
-
 
 
 #ifdef OS_SAFETY_CRITICAL

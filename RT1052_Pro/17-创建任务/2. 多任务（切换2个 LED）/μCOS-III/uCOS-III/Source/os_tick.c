@@ -154,7 +154,8 @@ void  OS_TickTask (void  *p_arg)
 
 void  OS_TickTaskInit (OS_ERR  *p_err)
 {
-    OSTickCtr                    = 0u;                          /* Clear the tick counter                               */
+	/* Clear the tick counter*/
+    OSTickCtr                    = 0u;
 
 #if (OS_CFG_DYN_TICK_EN == DEF_ENABLED)
     OSTickCtrStep                = (OS_TICK)-1;
@@ -172,7 +173,7 @@ void  OS_TickTaskInit (OS_ERR  *p_err)
     OSTickListTimeout.NbrUpdated = 0u;
 #endif
 
-                                                                /* --------------- CREATE THE TICK TASK --------------- */
+ /* --------------- CREATE THE TICK TASK --------------- */
     if (OSCfg_TickTaskStkBasePtr == (CPU_STK *)0) {
        *p_err = OS_ERR_TICK_STK_INVALID;
         return;
@@ -182,8 +183,8 @@ void  OS_TickTaskInit (OS_ERR  *p_err)
        *p_err = OS_ERR_TICK_STK_SIZE_INVALID;
         return;
     }
-
-    if (OSCfg_TickTaskPrio >= (OS_CFG_PRIO_MAX - 1u)) {         /* Only one task at the 'Idle Task' priority            */
+ /* Only one task at the 'Idle Task' priority */
+    if (OSCfg_TickTaskPrio >= (OS_CFG_PRIO_MAX - 1u)) { 
        *p_err = OS_ERR_TICK_PRIO_INVALID;
         return;
     }

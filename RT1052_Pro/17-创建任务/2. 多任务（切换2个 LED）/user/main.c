@@ -87,27 +87,27 @@ int  main (void)
         while (1);
     }
 
-    App_OS_SetAllHooks();                                       						//设置所有应用程序钩子函数
+    App_OS_SetAllHooks(); //设置所有应用程序钩子函数
 
 	/* 创建起始任务 */
-    OSTaskCreate((OS_TCB     *)&AppTaskStartTCB,                            //任务控制块地址
-                 (CPU_CHAR   *)"App Task Start",                            //任务名称
-                 (OS_TASK_PTR ) AppTaskStart,                               //任务函数
-                 (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
-                 (OS_PRIO     ) APP_TASK_START_PRIO,                        //任务的优先级
-                 (CPU_STK    *)&AppTaskStartStk[0],                         //任务堆栈的基地址
-                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE / 10,               //任务堆栈空间剩下1/10时限制其增长
-                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE,                    //任务堆栈空间（单位：sizeof(CPU_STK)）
-                 (OS_MSG_QTY  ) 5u,                                         //任务可接收的最大消息数
-                 (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
-                 (void       *) 0,                                          //任务扩展（0表不扩展）
+    OSTaskCreate((OS_TCB     *)&AppTaskStartTCB,//任务控制块地址
+                 (CPU_CHAR   *)"App Task Start",//任务名称
+                 (OS_TASK_PTR ) AppTaskStart, //任务函数
+                 (void       *) 0, //传递给任务函数（形参p_arg）的实参
+                 (OS_PRIO     ) APP_TASK_START_PRIO, //任务的优先级
+                 (CPU_STK    *)&AppTaskStartStk[0], //任务堆栈的基地址
+                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE / 10,//任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_START_STK_SIZE, //任务堆栈空间（单位：sizeof(CPU_STK)）
+                 (OS_MSG_QTY  ) 5u, //任务可接收的最大消息数
+                 (OS_TICK     ) 0u, //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
+                 (void       *) 0,  //任务扩展（0表不扩展）
                  (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR), //任务选项
                  (OS_ERR     *)&err);     
     if (err != OS_ERR_NONE) {
         while (1);
     }
 
-    OSStart(&err);                                          								//启动多任务管理（交由uC/OS-III控制）
+    OSStart(&err);  //启动多任务管理（交由uC/OS-III控制）
 
     while (DEF_ON) {                                           
         ;
@@ -145,33 +145,33 @@ static  void  AppTaskStart (void *p_arg)
 #endif
 
  /* 创建Led1任务 */
-    OSTaskCreate((OS_TCB     *)&AppTaskLed1TCB,                             //任务控制块地址
-                 (CPU_CHAR   *)"App Task Led1",                             //任务名称
-                 (OS_TASK_PTR ) AppTaskLed1,                                //任务函数
-                 (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
-                 (OS_PRIO     ) APP_TASK_LED1_PRIO,                         //任务的优先级
-                 (CPU_STK    *)&AppTaskLed1Stk[0],                          //任务堆栈的基地址
-                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE / 10,                //任务堆栈空间剩下1/10时限制其增长
-                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE,                     //任务堆栈空间（单位：sizeof(CPU_STK)）
-                 (OS_MSG_QTY  ) 5u,                                         //任务可接收的最大消息数
-                 (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
-                 (void       *) 0,                                          //任务扩展（0表不扩展）
+    OSTaskCreate((OS_TCB     *)&AppTaskLed1TCB,//任务控制块地址
+                 (CPU_CHAR   *)"App Task Led1",//任务名称
+                 (OS_TASK_PTR ) AppTaskLed1,   //任务函数
+                 (void       *) 0,             //传递给任务函数（形参p_arg）的实参
+                 (OS_PRIO     ) APP_TASK_LED1_PRIO,//任务的优先级
+                 (CPU_STK    *)&AppTaskLed1Stk[0],//任务堆栈的基地址
+                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE / 10, //任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_LED1_STK_SIZE, //任务堆栈空间（单位：sizeof(CPU_STK)）
+                 (OS_MSG_QTY  ) 5u, //任务可接收的最大消息数
+                 (OS_TICK     ) 0u, //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
+                 (void       *) 0,  //任务扩展（0表不扩展）
                  (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR), //任务选项
                  (OS_ERR     *)&err);                                       //返回错误类型
 
 
     /* 创建Led2任务 */
-    OSTaskCreate((OS_TCB     *)&AppTaskLed2TCB,                             //任务控制块地址
-                 (CPU_CHAR   *)"App Task Led2",                             //任务名称
-                 (OS_TASK_PTR ) AppTaskLed2,                                //任务函数
-                 (void       *) 0,                                          //传递给任务函数（形参p_arg）的实参
-                 (OS_PRIO     ) APP_TASK_LED2_PRIO,                         //任务的优先级
-                 (CPU_STK    *)&AppTaskLed2Stk[0],                          //任务堆栈的基地址
-                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE / 10,                //任务堆栈空间剩下1/10时限制其增长
-                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE,                     //任务堆栈空间（单位：sizeof(CPU_STK)）
-                 (OS_MSG_QTY  ) 5u,                                         //任务可接收的最大消息数
-                 (OS_TICK     ) 0u,                                         //任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
-                 (void       *) 0,                                          //任务扩展（0表不扩展）
+    OSTaskCreate((OS_TCB     *)&AppTaskLed2TCB,//任务控制块地址
+                 (CPU_CHAR   *)"App Task Led2",//任务名称
+                 (OS_TASK_PTR ) AppTaskLed2,   //任务函数
+                 (void       *) 0,             //传递给任务函数（形参p_arg）的实参
+                 (OS_PRIO     ) APP_TASK_LED2_PRIO,//任务的优先级
+                 (CPU_STK    *)&AppTaskLed2Stk[0], //任务堆栈的基地址
+                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE / 10, //任务堆栈空间剩下1/10时限制其增长
+                 (CPU_STK_SIZE) APP_TASK_LED2_STK_SIZE, //任务堆栈空间（单位：sizeof(CPU_STK)）
+                 (OS_MSG_QTY  ) 5u,//任务可接收的最大消息数
+                 (OS_TICK     ) 0u,//任务的时间片节拍数（0表默认值OSCfg_TickRate_Hz/10）
+                 (void       *) 0, //任务扩展（0表不扩展）
                  (OS_OPT      )(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR), //任务选项
                  (OS_ERR     *)&err);     
     while(1)

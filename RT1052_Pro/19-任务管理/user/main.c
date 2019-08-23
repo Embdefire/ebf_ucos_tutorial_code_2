@@ -235,14 +235,9 @@ static  void  AppTaskLed1 ( void * p_arg )
      
 			PRINTF("恢复LED3任务！\n");
 			OSTaskResume ( & AppTaskLed3TCB, & err );        //恢复 LED3 任务
-			
 		}
-		
 		OSTimeDly ( 1000, OS_OPT_TIME_DLY, & err );        //相对性延时1000个时钟节拍（1s）
-		
 	}
-		
-		
 }
 
 

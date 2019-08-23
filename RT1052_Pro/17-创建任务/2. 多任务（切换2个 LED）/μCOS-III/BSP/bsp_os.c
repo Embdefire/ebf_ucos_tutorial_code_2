@@ -88,13 +88,12 @@ void  BSP_OS_TickInit (void)
 {
     CPU_INT32U  cpu_freq;
     CPU_SR_ALLOC();
-
-
-    cpu_freq = BSP_ClkFreqGet(kCLOCK_CpuClk);                   /* Determine SysTick reference freq.                    */
-
+		/* 确定SysTick参考频率。*/
+    cpu_freq = BSP_ClkFreqGet(kCLOCK_CpuClk);
     CPU_CRITICAL_ENTER();
-    OS_CPU_SysTickInitFreq(cpu_freq);                           /* Init uC/OS periodic time src (SysTick).              */
-    BSP_OS_TickDisable();                                       /* See Note #2.                                         */
+		/*初始化uC / OS周期时间src（SysTick）*/
+    OS_CPU_SysTickInitFreq(cpu_freq);        
+    BSP_OS_TickDisable();
     CPU_CRITICAL_EXIT();
 }
 

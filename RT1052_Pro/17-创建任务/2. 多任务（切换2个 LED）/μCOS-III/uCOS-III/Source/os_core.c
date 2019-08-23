@@ -60,47 +60,34 @@ void  OSInit (OS_ERR  *p_err)
     CPU_STK      *p_stk;
     CPU_STK_SIZE  size;
 #endif
-
-
-
 #ifdef OS_SAFETY_CRITICAL
     if (p_err == (OS_ERR *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
         return;
     }
 #endif
-
-    OSInitHook();                                               /* Call port specific initialization code               */
-
-    OSIntNestingCtr       =           0u;                       /* Clear the interrupt nesting counter                  */
-
-    OSRunning             =  OS_STATE_OS_STOPPED;               /* Indicate that multitasking has not started           */
-
-    OSSchedLockNestingCtr =           0u;                       /* Clear the scheduling lock counter                    */
-
-    OSTCBCurPtr           = (OS_TCB *)0;                        /* Initialize OS_TCB pointers to a known state          */
+    OSInitHook();/*初始化钩子函数相关的代码*/
+    OSIntNestingCtr       =           0u;/*清除中断嵌套计数器*/
+    OSRunning             =  OS_STATE_OS_STOPPED;	/*未启动多任务处理*/
+    OSSchedLockNestingCtr =           0u;/* 清除锁定计数器*/
+    OSTCBCurPtr           = (OS_TCB *)0;/* 将OS_TCB指针初始化为已知状态  */ 
     OSTCBHighRdyPtr       = (OS_TCB *)0;
-
-    OSPrioCur             =           0u;                       /* Initialize priority variables to a known state       */
+    OSPrioCur             =           0u;/*将优先级变量初始化为已知状态*/
     OSPrioHighRdy         =           0u;
-
 #if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN == DEF_ENABLED)
     OSSchedLockTimeBegin  =           0u;
     OSSchedLockTimeMax    =           0u;
     OSSchedLockTimeMaxCur =           0u;
 #endif
-
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     OSSafetyCriticalStartFlag = DEF_FALSE;
 #endif
-
 #if (OS_CFG_SCHED_ROUND_ROBIN_EN == DEF_ENABLED)
     OSSchedRoundRobinEn             = DEF_FALSE;
     OSSchedRoundRobinDfltTimeQuanta = OSCfg_TickRate_Hz / 10u;
 #endif
-
 #if (OS_CFG_ISR_STK_SIZE > 0u)
-    p_stk = OSCfg_ISRStkBasePtr;                                /* Clear exception stack for stack checking.            */
+    p_stk = OSCfg_ISRStkBasePtr;/* 清除异常堆栈以进行堆栈检查 */
     if (p_stk != (CPU_STK *)0) {
         size  = OSCfg_ISRStkSize;
         while (size > 0u) {
@@ -109,12 +96,11 @@ void  OSInit (OS_ERR  *p_err)
             p_stk++;
         }
     }
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)                 /* Initialize Redzoned ISR stack                        */
+#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED) /* 初始化Redzoned ISR堆栈 */
     OS_TaskStkRedzoneInit(OSCfg_ISRStkBasePtr, OSCfg_ISRStkSize);
 #endif
 #endif
-
-#if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)                        /* Clear application hook pointers                      */
+#if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)  /* 清除应用程序钩子指针*/
 #if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
     OS_AppRedzoneHitHookPtr = (OS_APP_HOOK_TCB )0;
 #endif
@@ -127,117 +113,86 @@ void  OSInit (OS_ERR  *p_err)
     OS_AppTaskSwHookPtr     = (OS_APP_HOOK_VOID)0;
     OS_AppTimeTickHookPtr   = (OS_APP_HOOK_VOID)0;
 #endif
-
 #if (OS_CFG_TASK_REG_TBL_SIZE > 0u)
     OSTaskRegNextAvailID = 0u;
 #endif
-
-    OS_PrioInit();                                              /* Initialize the priority bitmap table                 */
-
-    OS_RdyListInit();                                           /* Initialize the Ready List                            */
-
-
-#if (OS_CFG_FLAG_EN == DEF_ENABLED)                             /* Initialize the Event Flag module                     */
+    OS_PrioInit();	/* 初始化优先级位图表 */		
+    OS_RdyListInit();/*初始化就绪列表*/
+#if (OS_CFG_FLAG_EN == DEF_ENABLED)   /* 初始化事件标志模块*/
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OSFlagDbgListPtr = (OS_FLAG_GRP *)0;
     OSFlagQty        =                0u;
 #endif
 #endif
-
-#if (OS_CFG_MEM_EN == DEF_ENABLED)                              /* Initialize the Memory Manager module                 */
+#if (OS_CFG_MEM_EN == DEF_ENABLED) /* 初始化内存管理器模块*/
     OS_MemInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
-#if (OS_MSG_EN == DEF_ENABLED)                                  /* Initialize the free list of OS_MSGs                  */
+#if (OS_MSG_EN == DEF_ENABLED) /* 初始化OS_MSG的空闲列表*/
     OS_MsgPoolInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
-#if (OS_CFG_MUTEX_EN == DEF_ENABLED)                            /* Initialize the Mutex Manager module                  */
+#if (OS_CFG_MUTEX_EN == DEF_ENABLED)  /* 初始化Mutex Manager模块 */
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OSMutexDbgListPtr = (OS_MUTEX *)0;
     OSMutexQty        =             0u;
 #endif
 #endif
-
-
-#if (OS_CFG_Q_EN == DEF_ENABLED)                                /* Initialize the Message Queue Manager module          */
+#if (OS_CFG_Q_EN == DEF_ENABLED) /* 初始化Message Queue Manager模块   */
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OSQDbgListPtr = (OS_Q *)0;
     OSQQty        =         0u;
 #endif
 #endif
-
-
-#if (OS_CFG_SEM_EN == DEF_ENABLED)                              /* Initialize the Semaphore Manager module              */
+#if (OS_CFG_SEM_EN == DEF_ENABLED)/*初始化信号量管理器模块*/
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OSSemDbgListPtr = (OS_SEM *)0;
     OSSemQty        =           0u;
 #endif
 #endif
-
-
 #if defined(OS_CFG_TLS_TBL_SIZE) && (OS_CFG_TLS_TBL_SIZE > 0u)
-    OS_TLS_Init(p_err);                                         /* Initialize Task Local Storage, before creating tasks */
+    OS_TLS_Init(p_err);/*在创建任务之前初始化任务本地存储*/
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
-    OS_TaskInit(p_err);                                         /* Initialize the task manager                          */
+    OS_TaskInit(p_err); /*初始化任务管理器 */	
     if (*p_err != OS_ERR_NONE) {
         return;
     }
-
-
 #if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
-    OS_IdleTaskInit(p_err);                                     /* Initialize the Idle Task                             */
+    OS_IdleTaskInit(p_err); /* 初始化空闲任务  */	
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
 #if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-    OS_TickTaskInit(p_err);                                     /* Initialize the Tick Task                             */
+    OS_TickTaskInit(p_err); /* 初始化时钟节拍任务 */
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)                        /* Initialize the Statistic Task                        */
+#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED) /* 初始化统计任务*/
     OS_StatTaskInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
-#if (OS_CFG_TMR_EN == DEF_ENABLED)                              /* Initialize the Timer Manager module                  */
+#if (OS_CFG_TMR_EN == DEF_ENABLED)/* 初始化Timer Manager模块*/
     OS_TmrInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
-
-
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OS_Dbg_Init();
 #endif
-
-
     OSCfg_Init();
-
-    OSInitialized = DEF_TRUE;                                   /* Kernel is initialized                                */
+    OSInitialized = DEF_TRUE;/* 内核已初始化*/
 }
 
 
@@ -812,21 +767,17 @@ void  OSSchedRoundRobinYield (OS_ERR  *p_err)
 void  OSStart (OS_ERR  *p_err)
 {
     OS_OBJ_QTY  kernel_task_cnt;
-
-
 #ifdef OS_SAFETY_CRITICAL
     if (p_err == (OS_ERR *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
         return;
     }
 #endif
-
     if (OSInitialized != DEF_TRUE) {
        *p_err = OS_ERR_OS_NOT_INIT;
         return;
     }
-
-    kernel_task_cnt = 0u;                                       /* Calculate the number of kernel tasks                 */
+    kernel_task_cnt = 0u; /* Calculate the number of kernel tasks */
 #if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
     kernel_task_cnt++;
 #endif
@@ -839,22 +790,20 @@ void  OSStart (OS_ERR  *p_err)
 #if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
     kernel_task_cnt++;
 #endif
-
-    if (OSTaskQty <= kernel_task_cnt) {                         /* No application task created                          */
+    if (OSTaskQty <= kernel_task_cnt) {/* No application task created*/
         *p_err = OS_ERR_OS_NO_APP_TASK;
          return;
     }
-
     if (OSRunning == OS_STATE_OS_STOPPED) {
-        OSPrioHighRdy   = OS_PrioGetHighest();                  /* Find the highest priority                            */
+        OSPrioHighRdy   = OS_PrioGetHighest(); /* Find the highest priority */
         OSPrioCur       = OSPrioHighRdy;
         OSTCBHighRdyPtr = OSRdyList[OSPrioHighRdy].HeadPtr;
         OSTCBCurPtr     = OSTCBHighRdyPtr;
         OSRunning       = OS_STATE_OS_RUNNING;
-        OSStartHighRdy();                                       /* Execute target specific code to start task           */
-       *p_err           = OS_ERR_FATAL_RETURN;                  /* OSStart() is not supposed to return                  */
+        OSStartHighRdy();                      /* Execute target specific code to start task */
+       *p_err           = OS_ERR_FATAL_RETURN; /* OSStart() is not supposed to return */
     } else {
-       *p_err           = OS_ERR_OS_RUNNING;                    /* OS is already running                                */
+       *p_err           = OS_ERR_OS_RUNNING;   /* OS is already running */
     }
 }
 
@@ -918,10 +867,8 @@ void  OS_IdleTask (void  *p_arg)
 #if ((OS_CFG_DBG_EN == DEF_ENABLED) || (OS_CFG_STAT_TASK_EN == DEF_ENABLED))
     CPU_SR_ALLOC();
 #endif
-
-
-    (void)p_arg;                                                /* Prevent compiler warning for not using 'p_arg'       */
-
+		/* Prevent compiler warning for not using 'p_arg'       */
+    (void)p_arg;  
     for (;;) {
 #if ((OS_CFG_DBG_EN == DEF_ENABLED) || (OS_CFG_STAT_TASK_EN == DEF_ENABLED))
         CPU_CRITICAL_ENTER();
@@ -933,9 +880,9 @@ void  OS_IdleTask (void  *p_arg)
 #endif
         CPU_CRITICAL_EXIT();
 #endif
-
 #if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)
-        OSIdleTaskHook();                                       /* Call user definable HOOK                             */
+			/* Call user definable HOOK*/
+        OSIdleTaskHook(); 
 #endif
     }
 }
@@ -960,7 +907,7 @@ void  OS_IdleTaskInit (OS_ERR  *p_err)
 #if (OS_CFG_DBG_EN == DEF_ENABLED)
     OSIdleTaskCtr = 0u;
 #endif
-                                                                /* --------------- CREATE THE IDLE TASK --------------- */
+ /* --------------- CREATE THE IDLE TASK --------------- */
     OSTaskCreate(&OSIdleTaskTCB,
 #if  (OS_CFG_DBG_EN == DEF_DISABLED)
                  (CPU_CHAR   *)0,

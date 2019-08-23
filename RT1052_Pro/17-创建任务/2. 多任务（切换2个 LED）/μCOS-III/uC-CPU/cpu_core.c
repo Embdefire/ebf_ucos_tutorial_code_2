@@ -203,19 +203,18 @@ static  CPU_TS_TMR  CPU_IntDisMeasMaxCalc(CPU_TS_TMR  time_tot_cnts);
 
 void  CPU_Init (void)
 {
-                                                                /* --------------------- INIT TS ---------------------- */
+/* --------------------- INIT TS ---------------------- */
 #if ((CPU_CFG_TS_EN     == DEF_ENABLED) || \
      (CPU_CFG_TS_TMR_EN == DEF_ENABLED))
-    CPU_TS_Init();                                              /* See Note #3a.                                        */
+    CPU_TS_Init();/* 时间戳测量的初始化   */
 #endif
-                                                                /* -------------- INIT INT DIS TIME MEAS -------------- */
+ /* -------------- INIT INT DIS TIME MEAS -------------- */
 #ifdef  CPU_CFG_INT_DIS_MEAS_EN
-    CPU_IntDisMeasInit();                                       /* See Note #3b.                                        */
+    CPU_IntDisMeasInit(); /* 最大关中断时间测量初始化     */
 #endif
-
-                                                                /* ------------------ INIT CPU NAME ------------------- */
+/* ------------------ INIT CPU NAME ------------------- */
 #if (CPU_CFG_NAME_EN == DEF_ENABLED)
-     CPU_NameInit();
+     CPU_NameInit();//CPU 名字初始化
 #endif
 
 #if (CPU_CFG_CACHE_MGMT_EN == DEF_ENABLED)

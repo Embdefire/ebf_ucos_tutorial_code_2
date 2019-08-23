@@ -490,97 +490,97 @@ void  OSTaskCreate (OS_TCB        *p_tcb,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_TASK_DEL_EN == DEF_ENABLED)
-void  OSTaskDel (OS_TCB  *p_tcb,
-                 OS_ERR  *p_err)
+#if (OS_CFG_TASK_DEL_EN == DEF_ENABLED)//如果使能了函数 OSTaskDel()
+void  OSTaskDel (OS_TCB  *p_tcb,        //目标任务控制块指针
+                 OS_ERR  *p_err)        //返回错误类型
 {
 #if (OS_CFG_MUTEX_EN == DEF_ENABLED)
     OS_TCB   *p_tcb_owner;
     OS_PRIO   prio_new;
 #endif
-    CPU_SR_ALLOC();
-
-
-#ifdef OS_SAFETY_CRITICAL
-    if (p_err == (OS_ERR *)0) {
-        OS_SAFETY_CRITICAL_EXCEPTION();
-        return;
+     CPU_SR_ALLOC(); //使用到临界段（在关/开中断时）时必需该宏，该宏声明和
+     //定义一个局部变量，用于保存关中断前的 CPU 状态寄存器
+     // SR（临界段关中断只需保存SR），开中断时将该值还原。
+#ifdef OS_SAFETY_CRITICAL               //如果使能（默认禁用）了安全检测
+    if (p_err == (OS_ERR *)0) {         //如果 p_err 为空
+        OS_SAFETY_CRITICAL_EXCEPTION(); //执行安全检测异常函数
+        return;                         //返回，停止执行
     }
 #endif
 
-#ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
-       *p_err = OS_ERR_ILLEGAL_DEL_RUN_TIME;
-        return;
+#ifdef OS_SAFETY_CRITICAL_IEC61508               //如果使能了中断中非法调用检测
+    if (OSSafetyCriticalStartFlag == DEF_TRUE) {//如果该函数在中断中被调用
+       *p_err = OS_ERR_ILLEGAL_DEL_RUN_TIME;     //错误类型为“在中断中删除任务”
+        return;                                 //返回，停止执行
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* See if trying to delete from ISR                     */
-       *p_err = OS_ERR_TASK_DEL_ISR;
-        return;
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED) //如果使能了中断中非法调用检测
+    if (OSIntNestingCtr > 0u) {                   //如果该函数在中断中被调用           
+       *p_err = OS_ERR_TASK_DEL_ISR;               //错误类型为“在中断中删除任务”
+        return;                                   //返回，停止执行
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
-       *p_err = OS_ERR_OS_NOT_RUNNING;
-        return;
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)          
+    if (OSRunning != OS_STATE_OS_RUNNING) {  //如果目标任务是空闲任务
+       *p_err = OS_ERR_OS_NOT_RUNNING;       //错误类型为“删除空闲任务”
+        return;                             //返回，停止执行
     }
 #endif
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
-    if (p_tcb == &OSIdleTaskTCB) {                              /* Not allowed to delete the idle task                  */
-       *p_err = OS_ERR_TASK_DEL_IDLE;
-        return;
+#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)    //如果使能了中断延迟发布
+    if (p_tcb == &OSIdleTaskTCB) {       //如果目标任务是中断延迟提交任务                  
+       *p_err = OS_ERR_TASK_DEL_IDLE;        //错误类型为“非法删除任务”
+        return;                             //返回，停止执行
     }
 #endif
 
-    if (p_tcb == (OS_TCB *)0) {                                 /* Delete 'Self'?                                       */
-        CPU_CRITICAL_ENTER();
-        p_tcb  = OSTCBCurPtr;                                   /* Yes.                                                 */
-        CPU_CRITICAL_EXIT();
+    if (p_tcb == (OS_TCB *)0) {//如果 p_tcb 为空                              
+        CPU_CRITICAL_ENTER();   //关中断
+        p_tcb  = OSTCBCurPtr;  //目标任务设为自身                              
+        CPU_CRITICAL_EXIT();    //开中断
     }
 
-    CPU_CRITICAL_ENTER();
-    switch (p_tcb->TaskState) {
-        case OS_TASK_STATE_RDY:
-             OS_RdyListRemove(p_tcb);
-             break;
+    CPU_CRITICAL_ENTER();                  //进入临界段
+    switch (p_tcb->TaskState) {          //根据目标任务的任务状态分类处理
+        case OS_TASK_STATE_RDY:        //如果是就绪状态
+             OS_RdyListRemove(p_tcb);  //将任务从就绪列表移除
+             break;                   //跳出
 
-        case OS_TASK_STATE_SUSPENDED:
-             break;
+        case OS_TASK_STATE_SUSPENDED:  //如果是挂起状态
+             break;                  //直接跳出
 
-        case OS_TASK_STATE_DLY:                                 /* Task is only delayed, not on any wait list           */
+        case OS_TASK_STATE_DLY:         //如果包含延时状态                     
         case OS_TASK_STATE_DLY_SUSPENDED:
 #if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-             OS_TickListRemove(p_tcb);
+             OS_TickListRemove(p_tcb); //将任务从节拍列表移除
 #endif
-             break;
+             break;//跳出
 
-        case OS_TASK_STATE_PEND:
+        case OS_TASK_STATE_PEND://如果包含等待状态
         case OS_TASK_STATE_PEND_SUSPENDED:
         case OS_TASK_STATE_PEND_TIMEOUT:
         case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
-             switch (p_tcb->PendOn) {                           /* See what we are pending on                           */
-                 case OS_TASK_PEND_ON_NOTHING:
-                 case OS_TASK_PEND_ON_TASK_Q:                   /* There is no wait list for these two                  */
-                 case OS_TASK_PEND_ON_TASK_SEM:
+             switch (p_tcb->PendOn) {   //根据任务的等待对象分类处理                     
+                 case OS_TASK_PEND_ON_NOTHING: //如果没在等待内核对象
+                 case OS_TASK_PEND_ON_TASK_Q:  //如果等待的是任务消息队列            
+                 case OS_TASK_PEND_ON_TASK_SEM://如果等待的是任务信号量
                       break;
 
-                 case OS_TASK_PEND_ON_FLAG:                     /* Remove from pend list                                */
-                 case OS_TASK_PEND_ON_Q:
-                 case OS_TASK_PEND_ON_SEM:
-                      OS_PendListRemove(p_tcb);
+                 case OS_TASK_PEND_ON_FLAG:   //如果等待的是事件                
+                 case OS_TASK_PEND_ON_Q:			//如果等待的是消息队列
+                 case OS_TASK_PEND_ON_SEM:		//如果等待的是信号量
+                      OS_PendListRemove(p_tcb);//将任务从等待列表移除
                       break;
 
 #if (OS_CFG_MUTEX_EN == DEF_ENABLED)
-                 case OS_TASK_PEND_ON_MUTEX:
+                 case OS_TASK_PEND_ON_MUTEX://如果等待的是互斥量
                       p_tcb_owner = ((OS_MUTEX *)((void *)p_tcb->PendObjPtr))->OwnerTCBPtr;
                       prio_new = p_tcb_owner->Prio;
-                      OS_PendListRemove(p_tcb);
+                      OS_PendListRemove(p_tcb);//将任务从等待列表移除
                       if ((p_tcb_owner->Prio != p_tcb_owner->BasePrio) &&
-                          (p_tcb_owner->Prio == p_tcb->Prio)) { /* Has the owner inherited a priority?                  */
+                          (p_tcb_owner->Prio == p_tcb->Prio)) { 
                           prio_new = OS_MutexGrpPrioFindHighest(p_tcb_owner);
                           prio_new = (prio_new > p_tcb_owner->BasePrio) ? p_tcb_owner->BasePrio : prio_new;
                       }
@@ -594,7 +594,7 @@ void  OSTaskDel (OS_TCB  *p_tcb,
 #endif
 
                  default:
-                                                                /* Default case.                                        */
+                                                              
                       break;
              }
 #if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
@@ -605,10 +605,10 @@ void  OSTaskDel (OS_TCB  *p_tcb,
 #endif
              break;
 
-        default:
-            CPU_CRITICAL_EXIT();
-           *p_err = OS_ERR_STATE_INVALID;
-            return;
+        default:                          //如果目标任务状态超出预期
+            CPU_CRITICAL_EXIT();          //退出临界段
+           *p_err = OS_ERR_STATE_INVALID;  //错误类型为“状态非法”
+            return;                       //返回，停止执行
     }
 
 #if (OS_CFG_MUTEX_EN == DEF_ENABLED)
@@ -617,33 +617,33 @@ void  OSTaskDel (OS_TCB  *p_tcb,
     }
 #endif
 
-#if (OS_CFG_TASK_Q_EN == DEF_ENABLED)
-    (void)OS_MsgQFreeAll(&p_tcb->MsgQ);                         /* Free task's message queue messages                   */
+#if (OS_CFG_TASK_Q_EN == DEF_ENABLED)     //如果使能了任务消息队列
+    (void)OS_MsgQFreeAll(&p_tcb->MsgQ); //释放任务的所有任务消息                        
 #endif
 
-    OSTaskDelHook(p_tcb);                                       /* Call user defined hook                               */
+    OSTaskDelHook(p_tcb); //调用用户自定义的钩子函数                                      
 
 #if defined(OS_CFG_TLS_TBL_SIZE) && (OS_CFG_TLS_TBL_SIZE > 0u)
-    OS_TLS_TaskDel(p_tcb);                                      /* Call TLS hook                                        */
+    OS_TLS_TaskDel(p_tcb);                                      
 #endif
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
-    OS_TaskDbgListRemove(p_tcb);
+#if (OS_CFG_DBG_EN == DEF_ENABLED) //如果使能了调试代码和变量
+    OS_TaskDbgListRemove(p_tcb);  //将任务从任务调试双向列表移除
 #endif
 
-    OSTaskQty--;                                                /* One less task being managed                          */
+    OSTaskQty--;//任务数目减1                                             
 
-    OS_TRACE_TASK_DEL(p_tcb);
+    OS_TRACE_TASK_DEL(p_tcb); //初始化任务控制块
 
-#if (OS_CFG_TASK_STK_REDZONE_EN != DEF_ENABLED)                 /* Don't clear the TCB before checking the red-zone     */
-    OS_TaskInitTCB(p_tcb);                                      /* Initialize the TCB to default values                 */
+#if (OS_CFG_TASK_STK_REDZONE_EN != DEF_ENABLED)              
+    OS_TaskInitTCB(p_tcb);                                   
 #endif
-    p_tcb->TaskState = (OS_STATE)OS_TASK_STATE_DEL;             /* Indicate that the task was deleted                   */
+    p_tcb->TaskState = (OS_STATE)OS_TASK_STATE_DEL; //标定任务已被删除         
 
-   *p_err = OS_ERR_NONE;                                        /* See Note #1.                                         */
+   *p_err = OS_ERR_NONE;   //错误类型为“无错误”                                   
     CPU_CRITICAL_EXIT();
 
-    OSSched();                                                  /* Find new highest priority task                       */
+    OSSched();//调度任务                                               
 }
 #endif
 
@@ -1366,28 +1366,28 @@ void  OSTaskRegSet (OS_TCB     *p_tcb,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_TASK_SUSPEND_EN == DEF_ENABLED)
-void  OSTaskResume (OS_TCB  *p_tcb,
-                    OS_ERR  *p_err)
+#if (OS_CFG_TASK_SUSPEND_EN == DEF_ENABLED)//如果使能了函数 OSTaskResume() 
+void  OSTaskResume (OS_TCB  *p_tcb, //任务控制块指针
+                    OS_ERR  *p_err) //返回错误类型
 {
-    CPU_SR_ALLOC();
-
-
-#ifdef OS_SAFETY_CRITICAL
-    if (p_err == (OS_ERR *)0) {
-        OS_SAFETY_CRITICAL_EXCEPTION();
-        return;
+   CPU_SR_ALLOC();  //使用到临界段（在关/开中断时）时必需该宏，该宏声明和
+   //定义一个局部变量，用于保存关中断前的 CPU 状态寄存器
+   // SR（临界段关中断只需保存SR），开中断时将该值还原。
+#ifdef OS_SAFETY_CRITICAL                //如果使能了安全检测
+    if (p_err == (OS_ERR *)0) {             //如果 p_err 为空
+        OS_SAFETY_CRITICAL_EXCEPTION();  //执行安全检测异常函数
+        return;                          //返回，停止执行
     }
 #endif
-
+//如果禁用了中断延迟发布和中断中非法调用检测
 #if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
-       *p_err = OS_ERR_TASK_RESUME_ISR;
-        return;
+    if (OSIntNestingCtr > 0u) {          //如果在中断中调用该函数  
+       *p_err = OS_ERR_TASK_RESUME_ISR;   //错误类型为“在中断中恢复任务”
+        return;                          //返回，停止执行
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)    
     if (OSRunning != OS_STATE_OS_RUNNING) {
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return;
@@ -1396,68 +1396,68 @@ void  OSTaskResume (OS_TCB  *p_tcb,
 
 
 #if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
-    CPU_CRITICAL_ENTER();
-    if ((p_tcb == (OS_TCB *)0) ||                               /* We cannot resume 'self'                              */
-        (p_tcb == OSTCBCurPtr)) {
-        CPU_CRITICAL_EXIT();
-       *p_err  = OS_ERR_TASK_RESUME_SELF;
-        return;
-    }
-    CPU_CRITICAL_EXIT();
+    CPU_CRITICAL_ENTER();                 //关中断
+    if ((p_tcb == (OS_TCB *)0) ||         //如果使能了参数检测             
+        (p_tcb == OSTCBCurPtr)) {         //如果被恢复任务为空或是自身
+        CPU_CRITICAL_EXIT();             
+       *p_err  = OS_ERR_TASK_RESUME_SELF; //开中断
+        return;                            //错误类型为“恢复自身”
+    }                                     //返回，停止执行
+    CPU_CRITICAL_EXIT();									 //关中断
 #endif
 
-    CPU_CRITICAL_ENTER();
-   *p_err  = OS_ERR_NONE;
-    switch (p_tcb->TaskState) {
-        case OS_TASK_STATE_RDY:
+    CPU_CRITICAL_ENTER();//关中断
+   *p_err  = OS_ERR_NONE;//错误类型为“无错误”
+    switch (p_tcb->TaskState) {//根据 p_tcb 的任务状态分类处理
+        case OS_TASK_STATE_RDY://如果状态中没有挂起状态
         case OS_TASK_STATE_DLY:
         case OS_TASK_STATE_PEND:
         case OS_TASK_STATE_PEND_TIMEOUT:
-             CPU_CRITICAL_EXIT();
-            *p_err = OS_ERR_TASK_NOT_SUSPENDED;
-             break;
+             CPU_CRITICAL_EXIT();//开中断
+            *p_err = OS_ERR_TASK_NOT_SUSPENDED;//错误类型为“任务未被挂起”
+             break;//跳出
 
-        case OS_TASK_STATE_SUSPENDED:
-             p_tcb->SuspendCtr--;
-             if (p_tcb->SuspendCtr == 0u) {
-                 p_tcb->TaskState = OS_TASK_STATE_RDY;
-                 OS_RdyListInsert(p_tcb);                       /* Insert the task in the ready list                    */
+        case OS_TASK_STATE_SUSPENDED://如果是“挂起状态”
+             p_tcb->SuspendCtr--; //任务的挂起嵌套数减1
+             if (p_tcb->SuspendCtr == 0u) {//如果挂起前套数为0
+                 p_tcb->TaskState = OS_TASK_STATE_RDY;//修改状态为“就绪状态”
+                 OS_RdyListInsert(p_tcb);//把 p_tcb 插入就绪列表                    
              }
              CPU_CRITICAL_EXIT();
              break;
 
-        case OS_TASK_STATE_DLY_SUSPENDED:
-             p_tcb->SuspendCtr--;
-             if (p_tcb->SuspendCtr == 0u) {
-                 p_tcb->TaskState = OS_TASK_STATE_DLY;
+        case OS_TASK_STATE_DLY_SUSPENDED://如果是“延时中被挂起”
+             p_tcb->SuspendCtr--;//任务的挂起嵌套数减1
+             if (p_tcb->SuspendCtr == 0u) { //如果挂起前套数为0
+                 p_tcb->TaskState = OS_TASK_STATE_DLY; //修改状态为“延时状态”
              }
-             CPU_CRITICAL_EXIT();
-             break;
+             CPU_CRITICAL_EXIT();//开中断
+             break;//跳出
 
-        case OS_TASK_STATE_PEND_SUSPENDED:
-             p_tcb->SuspendCtr--;
-             if (p_tcb->SuspendCtr == 0u) {
-                 p_tcb->TaskState = OS_TASK_STATE_PEND;
+        case OS_TASK_STATE_PEND_SUSPENDED://如果是“无期限等待中被挂起”
+             p_tcb->SuspendCtr--;//任务的挂起嵌套数减1
+             if (p_tcb->SuspendCtr == 0u) {//如果挂起前套数为0
+                 p_tcb->TaskState = OS_TASK_STATE_PEND;//修改状态为“无期限等待状态”
              }
-             CPU_CRITICAL_EXIT();
-             break;
+             CPU_CRITICAL_EXIT();//开中断
+             break;              //跳出
 
-        case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
-             p_tcb->SuspendCtr--;
-             if (p_tcb->SuspendCtr == 0u) {
+        case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED://如果是“有期限等待中被挂起”
+             p_tcb->SuspendCtr--;//任务的挂起嵌套数减1
+             if (p_tcb->SuspendCtr == 0u) {//如果挂起前套数为0
                  p_tcb->TaskState = OS_TASK_STATE_PEND_TIMEOUT;
              }
-             CPU_CRITICAL_EXIT();
-             break;
+             CPU_CRITICAL_EXIT(); //开中断
+             break;               //跳出
 
-        default:
-             CPU_CRITICAL_EXIT();
-            *p_err = OS_ERR_STATE_INVALID;
-             return;
+        default:                          //如果 p_tcb 任务状态超出预期
+             CPU_CRITICAL_EXIT();                        //开中断
+            *p_err = OS_ERR_STATE_INVALID;   //错误类型为“状态非法”
+             return;                        //跳出
     }
 
     OS_TRACE_TASK_RESUME(p_tcb);
-    OSSched();
+    OSSched();//调度任务
 }
 #endif
 
@@ -2164,38 +2164,34 @@ CPU_BOOLEAN  OSTaskStkRedzoneChk (OS_TCB  *p_tcb)
 */
 
 #if (OS_CFG_TASK_SUSPEND_EN == DEF_ENABLED)
-void   OSTaskSuspend (OS_TCB  *p_tcb,
-                      OS_ERR  *p_err)
+void   OSTaskSuspend (OS_TCB  *p_tcb,  //任务控制块指针
+                      OS_ERR  *p_err)  //返回错误类型
 {
-    CPU_SR_ALLOC();
-
-
+    CPU_SR_ALLOC();  //使用到临界段（在关/开中断时）时必需该宏，该宏声明和
+    //定义一个局部变量，用于保存关中断前的 CPU 状态寄存器
+    // SR（临界段关中断只需保存SR），开中断时将该值还原。
 #ifdef OS_SAFETY_CRITICAL
     if (p_err == (OS_ERR *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
         return;
     }
 #endif
-
 #if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+    if (OSIntNestingCtr > 0u) {                          
        *p_err = OS_ERR_TASK_SUSPEND_ISR;
         return;
     }
 #endif
-
 #if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
-    if (p_tcb == &OSIdleTaskTCB) {                              /* Make sure not suspending the idle task               */
+    if (p_tcb == &OSIdleTaskTCB) {                           
        *p_err = OS_ERR_TASK_SUSPEND_IDLE;
         return;
     }
 #endif
-
     OS_TRACE_TASK_SUSPEND(p_tcb);
-
-    CPU_CRITICAL_ENTER();
-    if (p_tcb == (OS_TCB *)0) {                                 /* See if specified to suspend self                     */
-        if (OSRunning != OS_STATE_OS_RUNNING) {                 /* Can't suspend self when the kernel isn't running     */
+    CPU_CRITICAL_ENTER(); //关中断
+    if (p_tcb == (OS_TCB *)0) { //如果 p_tcb 为空
+        if (OSRunning != OS_STATE_OS_RUNNING) {//挂起自身
             CPU_CRITICAL_EXIT();
            *p_err = OS_ERR_OS_NOT_RUNNING;
             return;
@@ -2203,42 +2199,42 @@ void   OSTaskSuspend (OS_TCB  *p_tcb,
         p_tcb = OSTCBCurPtr;
     }
 
-    if (p_tcb == OSTCBCurPtr) {
-        if (OSSchedLockNestingCtr > 0u) {                       /* Can't suspend when the scheduler is locked           */
-            CPU_CRITICAL_EXIT();
-           *p_err = OS_ERR_SCHED_LOCKED;
-            return;
+    if (p_tcb == OSTCBCurPtr) {             //如果是挂起自身
+        if (OSSchedLockNestingCtr > 0u) {      //如果调度器被锁
+            CPU_CRITICAL_EXIT();               //开中断
+           *p_err = OS_ERR_SCHED_LOCKED;     //错误类型为“调度器被锁”
+            return;                            //返回，停止执行
         }
     }
 
-   *p_err = OS_ERR_NONE;
-    switch (p_tcb->TaskState) {
-        case OS_TASK_STATE_RDY:
-             p_tcb->TaskState  =  OS_TASK_STATE_SUSPENDED;
-             p_tcb->SuspendCtr = 1u;
-             OS_RdyListRemove(p_tcb);
-             CPU_CRITICAL_EXIT();
-             break;
+   *p_err = OS_ERR_NONE;        //错误类型为“无错误”
+    switch (p_tcb->TaskState) {//根据 p_tcb 的任务状态分类处理
+        case OS_TASK_STATE_RDY: //如果是就绪状态
+             p_tcb->TaskState  =  OS_TASK_STATE_SUSPENDED;//任务状态改为“挂起状态”
+             p_tcb->SuspendCtr = 1u;     //挂起前套数为1
+             OS_RdyListRemove(p_tcb);  //将任务从就绪列表移除
+             CPU_CRITICAL_EXIT();      //开调度器，不进行调度
+             break;                      //跳出
 
-        case OS_TASK_STATE_DLY:
+        case OS_TASK_STATE_DLY://如果是延时状态将改为“延时中被挂起”
              p_tcb->TaskState  = OS_TASK_STATE_DLY_SUSPENDED;
-             p_tcb->SuspendCtr = 1u;
-             CPU_CRITICAL_EXIT();
-             break;
+             p_tcb->SuspendCtr = 1u; //挂起前套数为1
+             CPU_CRITICAL_EXIT();    //开中断
+             break;                  //跳出
 
-        case OS_TASK_STATE_PEND:
+        case OS_TASK_STATE_PEND://如果是无期限等待状态将改为“无期限等待中被挂起”
              p_tcb->TaskState  = OS_TASK_STATE_PEND_SUSPENDED;
-             p_tcb->SuspendCtr = 1u;
-             CPU_CRITICAL_EXIT();
-             break;
+             p_tcb->SuspendCtr = 1u;  //挂起前套数为1
+             CPU_CRITICAL_EXIT();     //开中断
+             break;                   //跳出
 
-        case OS_TASK_STATE_PEND_TIMEOUT:
+        case OS_TASK_STATE_PEND_TIMEOUT://如果是有期限等待将改为“有期限等待中被挂起”
              p_tcb->TaskState  = OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED;
-             p_tcb->SuspendCtr = 1u;
-             CPU_CRITICAL_EXIT();
-             break;
+             p_tcb->SuspendCtr = 1u;  //挂起前套数为1
+             CPU_CRITICAL_EXIT();     //开中断
+             break;                   //跳出
 
-        case OS_TASK_STATE_SUSPENDED:
+        case OS_TASK_STATE_SUSPENDED://如果状态中有挂起状态
         case OS_TASK_STATE_DLY_SUSPENDED:
         case OS_TASK_STATE_PEND_SUSPENDED:
         case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
@@ -2247,18 +2243,18 @@ void   OSTaskSuspend (OS_TCB  *p_tcb,
                 *p_err = OS_ERR_TASK_SUSPEND_CTR_OVF;
                  return;
              }
-             p_tcb->SuspendCtr++;
-             CPU_CRITICAL_EXIT();
-             break;
+             p_tcb->SuspendCtr++;   //挂起嵌套数加1
+             CPU_CRITICAL_EXIT();   //开中断
+             break;                 //跳出
 
-        default:
-             CPU_CRITICAL_EXIT();
-            *p_err = OS_ERR_STATE_INVALID;
-             return;
+        default:                          //如果任务状态超出预期
+             CPU_CRITICAL_EXIT();         //开中断
+            *p_err = OS_ERR_STATE_INVALID;//错误类型为“状态非法”
+             return;                     //返回，停止执行
     }
 
-    if (OSRunning == OS_STATE_OS_RUNNING) {                     /* Only schedule when the kernel is running             */
-        OSSched();
+    if (OSRunning == OS_STATE_OS_RUNNING) {      
+        OSSched();//调度任务
     }
 }
 #endif
