@@ -56,11 +56,6 @@
 */
 
 #define  APP_TASK_START_PRIO                        2u            //任务优先级
-
-#define  APP_TASK_POST_PRIO                         3u
-#define  APP_TASK_PEND_PRIO                         3u
-
-
 /*
 *********************************************************************************************************
 *                                            TASK STACK SIZES
@@ -68,10 +63,6 @@
 */
 
 #define  APP_TASK_START_STK_SIZE                    128u          //任务堆栈空间（单位：sizeof(CPU_STK)）
-
-#define  APP_TASK_POST_STK_SIZE                     512u 
-#define  APP_TASK_PEND_STK_SIZE                     512u 
-
 
 /*
 *********************************************************************************************************
