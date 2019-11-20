@@ -292,7 +292,7 @@ static  void  AppTaskLed3 ( void * p_arg )
 
 
 	while (DEF_TRUE) {                                 //任务体，通常写成一个死循环
-		LED3_TOGGLE;                               //切换 LED3 的亮灭状态
+		LED3_TOGGLE;                                     //切换 LED3 的亮灭状态
 		
 		value = OSTaskRegGet ( 0, 0, & err );            //获取自身任务寄存器值
 		
